@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import {
   SafeAreaView,
   View,
-  Text
 } from 'react-native';
+import {Text} from '../src/components/text'
 
 
 
-const App: () => React$Node = props => {
+const App = props => {
   
   return (
     <SafeAreaView>
@@ -15,7 +15,7 @@ const App: () => React$Node = props => {
           style={{
             backgroundColor: 'white',
           }}>
-          <Text>Boilerplate</Text>
+        <Text style={{  fontFamily: 'Lato',fontSize: 20, marginLeft: 20,}}>Boilerplate</Text>
          
         </View>
     </SafeAreaView>
