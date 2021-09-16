@@ -15,7 +15,7 @@ const App = props => {
           style={{
             backgroundColor: 'white',
           }}>
-        <Text style={{  fontFamily: 'Lato',fontSize: 20, marginLeft: 20,}}>Boilerplate</Text>
+        <Text style={{  fontFamily: 'Lato',fontSize: 28, marginLeft: 20,}}>Boilerplate</Text>
          
         </View>
     </SafeAreaView>
