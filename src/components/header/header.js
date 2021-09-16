@@ -4,14 +4,13 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import { withTranslation } from "react-i18next";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { COLOR } from "@config";
 import { Text, SearchBar, Link } from "../";
 import styles from "./header.style";
 
-let Header: () => React$Node = props => {
-  const { t } = props;
+let Header = props => {
+  // const { t } = props;
   let inputRef;
 
   const onPressCancelSearch = () => {
@@ -94,7 +93,7 @@ let Header: () => React$Node = props => {
             <View style={styles.cancelButtonContainer}>
               <Link
                 primary
-                text={t("headerActionButtons.cancelSearch")}
+                text={"headerActionButtons.cancelSearch"}
                 onPress={onPressCancelSearch}
               />
             </View>
@@ -105,6 +104,6 @@ let Header: () => React$Node = props => {
   );
 };
 
-Header = withTranslation()(Header);
+// Header = withTranslation()(Header);
 
 export { Header };
