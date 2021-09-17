@@ -27,7 +27,7 @@ let Header = props => {
       ]}
     >
       {!props.hideTitle ? <View style={styles.topSpace} /> : null}
-
+      <View style={{flexDirection: 'row'}}>
       {props.leftIconName || props.rightButtonText ? (
         <View style={styles.buttonsContainer}>
           {props.leftIconName ? (
@@ -36,12 +36,14 @@ let Header = props => {
                 props.onLeftButtonPress && props.onLeftButtonPress()
               }
             >
+              <View style={{ }}>
               <Icon
                 name={props.leftIconName}
                 size={21}
                 color={COLOR.HEADER_ICON}
                 style={styles.leftIcon}
               />
+              </View>
             </TouchableOpacity>
           ) : null}
 
@@ -77,7 +79,8 @@ let Header = props => {
         >
           {props.title}
         </Text>
-      ) : null}
+        ) : null}
+        </View>
 
       {props.searchBar ? (
         <View style={styles.searchBarContainer}>
@@ -88,8 +91,44 @@ let Header = props => {
             }}
             {...props.searchInputProps}
           />
+          {props.saveIcon ? (
+            <View style={styles.searchBarRightButtons}>
+            <TouchableOpacity
+            onPress={() =>
+              props.onsaveIconPress && props.onsaveIconPress()
+            }
+            >
+              <View style={{borderRadius: 20, borderWidth: 1, borderColor: 'white', padding: 10}}>
+            <Icon
+              name={'heart'}
+              size={15}
+              color={'white'}
+              // style={styles.leftIcon}
+            />
+            </View>
+          </TouchableOpacity>
+          </View>
+          ) : null}
+          {props.addEventIcon ? (
+            <View style={styles.searchBarRightButtons}>
+              <TouchableOpacity
+              onPress={() =>
+                props.onAddEventPress && props.onAddEventPress()
+              }
+              >
+                <View style={{borderRadius: 20, borderWidth: 1, borderColor: 'white', padding: 10}}>
+              <Icon
+                name={'plus'}
+                size={15}
+                color={'white'}
+                // style={styles.leftIcon}
+              />
+              </View>
+            </TouchableOpacity>
+            </View>
+          ) : null}
 
-          {props.showCancelSearchButton ? (
+          {/* {props.showCancelSearchButton ? (
             <View style={styles.cancelButtonContainer}>
               <Link
                 primary
@@ -97,7 +136,7 @@ let Header = props => {
                 onPress={onPressCancelSearch}
               />
             </View>
-          ) : null}
+          ) : null} */}
         </View>
       ) : null}
     </View>

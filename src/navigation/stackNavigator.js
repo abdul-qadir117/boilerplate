@@ -15,16 +15,16 @@ export class StackNavigator extends Component {
     return (
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator>
-          {/* <Stack.Screen
+          <Stack.Screen
             name="Auth"
             component={AuthStack}
             options={{headerShown: false}}
-          /> */}
-          <Stack.Screen
+          />
+           <Stack.Screen
             name="TabBar"
             component={BottomTabRouter}
             options={{headerShown: false}}
-          />
+          /> 
         </Stack.Navigator>
       </NavigationContainer>
     );

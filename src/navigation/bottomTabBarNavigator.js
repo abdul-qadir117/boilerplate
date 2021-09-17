@@ -2,7 +2,8 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text } from 'react-native';
 
-//Screens
+// Screens
+import EventList from '../screens/event-list/event-list';
 // import BoxScreen from '../screens/boxScreen';
 // import CartScreen from '../screens/cartScreen';
 // import SkuScreen from '../screens/skuScreen';
@@ -52,9 +53,9 @@ export default function BottomTabRouter() {
         
       }}/>
       
-      <Tab.Screen name="SKU" component={TestTab2}
+      <Tab.Screen name="SKU" component={EventList}
       options={{
-        tabBarLabel: 'STOCKS',
+        tabBarLabel: 'Events',
         
       }}
       />

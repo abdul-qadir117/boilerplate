@@ -29,7 +29,7 @@ class FontHelper {
 
     const styles = {
       ..._.omit(fontParams, ["fontFamily", "fontWeight", "fontStyle"]),
-      ...FONTS[fontFamily][fontWeight + fontStyle],
+      // ...FONTS[fontFamily][fontWeight + fontStyle],
     };
 
     return styles;

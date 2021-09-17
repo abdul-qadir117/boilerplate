@@ -1,7 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {Component} from 'react';
 
-import Login from '../screens/login/login';
+import Login from '../screens/login';
 // import ForgotPassword from '../screens/Forgot-Password';
 
 

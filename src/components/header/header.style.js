@@ -3,8 +3,8 @@ import { COLOR } from "@config";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FFFFFF",
-    paddingBottom: 10,
+    backgroundColor: "grey",
+    // paddingBottom: 10,
   },
   topSpace: {
     height: 27,
@@ -19,26 +19,30 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   title: {
-    fontFamily: "DomaineDisplay",
+    fontFamily: "Lato",
     fontSize: 28,
-    fontWeight: "600",
+    fontWeight: "800",
     marginTop: 15,
     color: COLOR.HEADER_TITLE,
     marginLeft: 16,
   },
   searchBarContainer: {
     padding: 16,
-    paddingBottom: 5,
+    paddingBottom: 15,
     fontSize: 14,
     fontFamily: "Lato",
     flexDirection: "row",
+    backgroundColor: 'blue',
   },
-  cancelButtonContainer: {
+  searchBarRightButtons: {
     justifyContent: "center",
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
   },
   searchInputContainer: {
     flex: 1,
+    borderWidth: 2,
+    borderRadius: 28,
+    backgroundColor: 'white'
   },
   smallTitle: {
     color: "#373737",

@@ -1,46 +1,29 @@
-import { connect } from "react-redux";
-import { withTranslation } from "react-i18next";
-import i18n from "i18next";
-import { reduxForm } from "redux-form";
-import validator from "validator";
-import { UserCreators } from "@redux/actions";
+// import { connect } from "react-redux";
+// import { reduxForm } from "redux-form";
 import Login from "./login";
 
-const validateLogin = (values, props) => {
-  const errors = {};
-  const { email, password } = values;
 
-  if (!email || (email && !validator.isEmail(email))) {
-    errors.email = i18n.t("formErrors.invalidEmail");
-  }
+// function mapStateToProps(state) {
+//   return {
+//     // isLoggingIn: state.loadingState.isLoggingIn,
+//     // isLoggingInSchool: state.loadingState.isLoggingInSchool,
+//   };
+// }
 
-  if (!password || (password && password.length < 6)) {
-    errors.password = i18n.t("formErrors.shortPassword");
-  }
-  return errors;
-};
+// const mapDispatchToProps = {
+//   // requestLogin: UserCreators.requestLogin,
+//   // requestSchoolLogin: UserCreators.requestSchoolLogin,
+// };
 
-function mapStateToProps(state) {
-  return {
-    isLoggingIn: state.loadingState.isLoggingIn,
-    isLoggingInSchool: state.loadingState.isLoggingInSchool,
-  };
-}
+// let LoginForm = reduxForm({
+//   form: "login",
+//   fields: ["email", "password"],
+// })(Login);
 
-const mapDispatchToProps = {
-  requestLogin: UserCreators.requestLogin,
-  requestSchoolLogin: UserCreators.requestSchoolLogin,
-};
+// // LoginForm = withTranslation()(LoginForm);
 
-let LoginForm = reduxForm({
-  form: "login",
-  validate: validateLogin,
-  touchOnChange: true,
-  fields: ["email", "password"],
-})(Login);
+// LoginForm = connect(mapStateToProps, mapDispatchToProps)(LoginForm);
 
-LoginForm = withTranslation()(LoginForm);
+// export default LoginForm;
+export default Login;
 
-LoginForm = connect(mapStateToProps, mapDispatchToProps)(LoginForm);
-
-export default LoginForm;

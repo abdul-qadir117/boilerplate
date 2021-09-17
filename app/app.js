@@ -1,14 +1,13 @@
-import React, { useEffect } from "react";
-import { StackNavigator } from "../src/navigation/stackNavigator";
-import Login from '../src/screens/login/login'
+import 'react-native-gesture-handler';
+import React from 'react';
+import {StackNavigator} from '../src/navigation/stackNavigator';
 
-const App = props => {
-  
+const App = () => {
   return (
-   <StackNavigator />
+    <>
+      <StackNavigator />
+    </>
   );
 };
-
-
 
 export default App;
