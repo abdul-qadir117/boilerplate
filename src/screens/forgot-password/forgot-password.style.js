@@ -12,7 +12,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '700',
     color: 'white',
-    // fontFamily: "DomaineDisplay",
+    textAlign: 'center',
+  },
+  welcomeDescription: {
+    marginTop: 10,
+    fontSize: 14,
+    fontWeight: '600',
+    color: 'white',
+    padding: 5,
     textAlign: 'center',
   },
   briefing: {

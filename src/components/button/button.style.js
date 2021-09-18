@@ -3,12 +3,12 @@ import {COLOR} from '@config';
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 8,
+    borderRadius: 28,
     paddingHorizontal: 20,
     height: 45,
     alignItems: 'center',
     justifyContent: 'center',
-    // width: 80,
+    // width: 200,
   },
   invertedPrimaryContainer: {},
   primaryContainer: {
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: '700',
-    fontSize: 14,
+    fontSize: 17,
   },
   primaryTitle: {
     fontWeight: '700',

@@ -87,7 +87,7 @@ const Login = props => {
           loading={props.isLoggingInSchool}
           primary
           title={'login.loginButtonTitle'}
-          onPress={() => props.navigation.navigate('TabBar')}
+          onPress={() => props.navigation.navigate('WelcomeScreen')}
         />
 
         <View style={styles.buttonSpace} />
