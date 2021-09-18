@@ -30,6 +30,7 @@ const EventList = props => {
         />
         <View style={{flex: 1}} />
       </View>
+
       <Timeline data={data} style={{marginTop: 20}} />
     </Screen>
   );

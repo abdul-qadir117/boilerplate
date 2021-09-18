@@ -1,5 +1,5 @@
-import { StyleSheet, Dimensions } from "react-native";
-const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
+import {StyleSheet, Dimensions} from 'react-native';
+const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -10,22 +10,23 @@ const styles = StyleSheet.create({
   },
   welcomeTitle: {
     fontSize: 32,
-    fontWeight: "600",
+    fontWeight: '600',
+    color: 'white',
     // fontFamily: "DomaineDisplay",
-    textAlign: "center",
+    textAlign: 'center',
   },
   briefing: {
     fontSize: 16,
-    textAlign: "center",
+    textAlign: 'center',
   },
   formContainer: {
     paddingHorizontal: 51,
     paddingBottom: 20,
   },
   imageContainer: {
-    alignItems: "center",
+    alignItems: 'center',
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   titleTopSpace: {
     height: 28,
@@ -49,17 +50,17 @@ const styles = StyleSheet.create({
     height: 12,
   },
   shapeLeft: {
-    position: "absolute",
+    position: 'absolute',
     left: 8,
     top: 67,
   },
   shapeRight: {
-    position: "absolute",
+    position: 'absolute',
     right: 0,
     top: 45,
   },
   shapeCircle: {
-    position: "absolute",
+    position: 'absolute',
     right: -20,
     bottom: -20,
   },
@@ -67,9 +68,7 @@ const styles = StyleSheet.create({
     height: 20,
   },
   image: {
-    height: Math.floor(
-      (Math.sqrt(screenHeight) / Math.sqrt(812)) * 100,
-    ),
+    height: Math.floor((Math.sqrt(screenHeight) / Math.sqrt(812)) * 100),
   },
 });
 
