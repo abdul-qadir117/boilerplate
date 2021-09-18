@@ -6,8 +6,24 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    borderWidth: 1,
     height: '50%',
+    width: '100%',
+  },
+  headerContainerImage: {
+    height: 750,
+    width: '100%',
+  },
+  welcomeText: {
+    fontSize: 32,
+    fontWeight: '700',
+    color: 'white',
+    marginLeft: 30,
+    textShadowColor: 'black',
+    shadowRadius: 1,
+    shadowOffset: {
+      height: 1,
+      width: 0,
+    },
   },
   formContainer: {
     height: '50%',

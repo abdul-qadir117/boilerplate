@@ -1,5 +1,13 @@
 import React, {useState} from 'react';
-import {View, Image, Platform, TextInput, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Image,
+  Platform,
+  TextInput,
+  TouchableOpacity,
+  ImageBackground,
+  StatusBar,
+} from 'react-native';
 import {Text, Screen, Button, Link} from '@components';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {TextInputField} from '@components/form';
@@ -25,8 +33,16 @@ const Login = props => {
   return (
     <Screen>
       <View style={styles.container}>
-        <CalendarComponent />
-        {/* <View style={styles.headerContainer}></View>
+        <StatusBar backgroundColor="black" barStyle="dark-content" />
+        {/* <CalendarComponent /> */}
+        <View style={styles.headerContainer}>
+          <ImageBackground
+            style={styles.headerContainerImage}
+            source={require('../../assets/images/loginBackground.png')}>
+            <Text style={{...styles.welcomeText, marginTop: 170}}>Welcome</Text>
+            <Text style={styles.welcomeText}>Back</Text>
+          </ImageBackground>
+        </View>
         <View style={styles.formContainer}>
           <TextInput style={styles.inputField} placeholder="Email" />
           <TextInput style={styles.inputField} placeholder="Password" />
@@ -43,7 +59,7 @@ const Login = props => {
               </TouchableOpacity>
             </View>
           </View>
-        </View> */}
+        </View>
       </View>
     </Screen>
   );
