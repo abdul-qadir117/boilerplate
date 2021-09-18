@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+
 import {
   View,
   Image,
@@ -14,8 +15,9 @@ import {TextInputField} from '@components/form';
 import styles from './login.style';
 import CalendarComponent from '../calendar/calendar-component';
 
+
 const Login = props => {
-  // const { handleSubmit } = props;
+  const {handleSubmit} = props;
   const [imageContainerHeight, setImageContainerHeight] = useState(0);
 
   function submit(values) {
@@ -25,9 +27,6 @@ const Login = props => {
       email,
       password,
     };
-
-    console.log('Params', params);
-    // props.requestSchoolLogin(params);
   }
 
   return (

@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     height: '50%',
     width: '100%',
   },
+
   headerContainerImage: {
     height: 750,
     width: '100%',
@@ -65,6 +66,67 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     textDecorationLine: 'underline',
     marginVertical: 20,
+  welcomeTitle: {
+    fontSize: 32,
+    fontWeight: '600',
+    color: 'white',
+    // fontFamily: "DomaineDisplay",
+    textAlign: 'center',
+  },
+  briefing: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  formContainer: {
+    paddingHorizontal: 51,
+    paddingBottom: 20,
+  },
+  imageContainer: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  titleTopSpace: {
+    height: 28,
+  },
+  titleBottomSpace: {
+    height: 4,
+  },
+  breifingBottomSpace: {
+    height: 15,
+  },
+  textInputSpace: {
+    height: 5,
+  },
+  forgotPasswordTopSpace: {
+    height: 10,
+  },
+  forgotPasswordBottomSpace: {
+    height: 15,
+  },
+  buttonSpace: {
+    height: 12,
+  },
+  shapeLeft: {
+    position: 'absolute',
+    left: 8,
+    top: 67,
+  },
+  shapeRight: {
+    position: 'absolute',
+    right: 0,
+    top: 45,
+  },
+  shapeCircle: {
+    position: 'absolute',
+    right: -20,
+    bottom: -20,
+  },
+  formTopSpace: {
+    height: 20,
+  },
+  image: {
+    height: Math.floor((Math.sqrt(screenHeight) / Math.sqrt(812)) * 100),
   },
 });
 

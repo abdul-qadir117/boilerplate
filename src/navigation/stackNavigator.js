@@ -14,17 +14,26 @@ export class StackNavigator extends Component {
   render() {
     return (
       <NavigationContainer ref={navigationRef}>
-        <Stack.Navigator>
+
+        <Stack.Navigator
+    initialRouteName='Auth'
+    screenOptions={{
+      headerShown: false,
+    }}
+    screenOptions={{ headerMode: 'none' }}
+  >
+
           <Stack.Screen
             name="Auth"
             component={AuthStack}
             options={{headerShown: false}}
           />
-          {/* <Stack.Screen
+           <Stack.Screen
             name="TabBar"
             component={BottomTabRouter}
             options={{headerShown: false}}
-          /> */}
+          /> 
+
         </Stack.Navigator>
       </NavigationContainer>
     );
