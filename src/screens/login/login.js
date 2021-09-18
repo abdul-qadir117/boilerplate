@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import { View, Image, Platform } from "react-native";
-// import { Field } from "redux-form";
-import { Text, Screen, Button, Link } from "@components";
-import { TextInputField } from "@components/form";
-import styles from "./login.style";
+import React, {useState} from 'react';
+import {View, Image, Platform, TextInput, TouchableOpacity} from 'react-native';
+import {Text, Screen, Button, Link} from '@components';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import {TextInputField} from '@components/form';
+import styles from './login.style';
+import CalendarComponent from '../calendar/calendar-component';
 
 const Login = props => {
   // const { handleSubmit } = props;
   const [imageContainerHeight, setImageContainerHeight] = useState(0);
 
   function submit(values) {
-    const { email, password } = values;
+    const {email, password} = values;
 
     const params = {
       email,
@@ -23,106 +24,27 @@ const Login = props => {
 
   return (
     <Screen>
-      <View style={styles.titleTopSpace} />
-
-      <Text scale style={styles.welcomeTitle}>
-        LOGIN
-      </Text>
-
-      <View style={styles.titleBottomSpace} />
-
-      <Text scale style={styles.briefing}>
-        Briefings.....
-      </Text>
-
-      <View style={styles.breifingBottomSpace} />
-
-      <View
-        style={styles.imageContainer}
-        onLayout={({
-          nativeEvent: {
-            layout: { height },
-          },
-        }) => {
-          setImageContainerHeight(height);
-        }}
-      >
-        <View>
-          {/* <Image
-            source={require("@assets/images/login-intro.png")}
-            resizeMode='contain'
-            style={{ height: imageContainerHeight, maxHeight: 300 }}
-          />
-
-          <Image
-            style={styles.shapeCircle}
-            source={require("@assets/images/login-shape-3.png")}
-          /> */}
-        </View>
+      <View style={styles.container}>
+        <CalendarComponent />
+        {/* <View style={styles.headerContainer}></View>
+        <View style={styles.formContainer}>
+          <TextInput style={styles.inputField} placeholder="Email" />
+          <TextInput style={styles.inputField} placeholder="Password" />
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity>
+              <Text style={styles.signInText}>Sign In</Text>
+            </TouchableOpacity>
+            <View style={styles.nextButtonContainer}>
+              <TouchableOpacity style={styles.nextButton}>
+                <Icon name="angle-right" size={60} color="white" />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={styles.forgetPassword}>Forget Password</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View> */}
       </View>
-
-      <View style={styles.formTopSpace} />
-
-      <View style={styles.formContainer}>
-        {/* <Field
-          component={TextInputField}
-          name='email'
-          label={t("login.emailLabel")}
-          placeholder={t("login.emailPlaceholder")}
-          keyboardType='email-address'
-          autoCapitalize='none'
-        /> */}
-
-        <View style={styles.textInputSpace} />
-
-        {/* <Field
-          component={TextInputField}
-          name='password'
-          password
-          label={t("login.passwordLabel")}
-          placeholder={t("login.passwordPlaceholder")}
-        /> */}
-
-        <View style={styles.forgotPasswordTopSpace} />
-
-        <Link
-          primary
-          text={"login.forgotPasswordLink"}
-          // onPress={() => props.navigation.navigate("ResetPassword")}
-        />
-
-        <View style={styles.forgotPasswordBottomSpace} />
-
-        <Button
-          loading={props.isLoggingInSchool}
-          primary
-          title={"login.loginButtonTitle"}
-          // onPress={handleSubmit(submit)}
-          onPress={() => {}}
-        />
-
-        <View style={styles.buttonSpace} />
-
-        {/* <Button
-          // googleLogin
-          icon={
-            <Image
-              source={require("@assets/images/google-login-button.png")}
-            />
-          }
-          title={t("login.googleLoginButtonTitle")}
-        /> */}
-      </View>
-
-      {/* <Image
-        style={styles.shapeLeft}
-        source={require("@assets/images/login-shape-1.png")}
-      />
-
-      <Image
-        style={styles.shapeRight}
-        source={require("@assets/images/login-shape-2.png")}
-      /> */}
     </Screen>
   );
 };
