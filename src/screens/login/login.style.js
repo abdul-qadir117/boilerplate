@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   welcomeTitle: {
     fontSize: 32,
     fontWeight: "600",
-    fontFamily: "DomaineDisplay",
+    // fontFamily: "DomaineDisplay",
     textAlign: "center",
   },
   briefing: {

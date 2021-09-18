@@ -3,11 +3,11 @@ import { COLOR } from "@config";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FFFFFF",
-    paddingBottom: 10,
+    backgroundColor: "grey",
+    // paddingBottom: 10,
   },
   topSpace: {
-    height: 27,
+    // height: 27,
   },
   shadow: {
     elevation: 5,
@@ -15,30 +15,37 @@ const styles = StyleSheet.create({
     shadowOffset: { height: 4 },
     zIndex: 10,
   },
+  leftIconView: {borderRadius: 40, borderWidth: 1,paddingLeft: 1, width: 35, height: 35, backgroundColor: 'black' },
   leftIcon: {
-    marginLeft: 16,
+    // marginLeft: 16,
+    padding: 7,
+    color: 'white',
   },
   title: {
-    fontFamily: "DomaineDisplay",
-    fontSize: 28,
-    fontWeight: "600",
-    marginTop: 15,
-    color: COLOR.HEADER_TITLE,
-    marginLeft: 16,
+    fontFamily: "Montserrat",
+    fontSize: 20,
+    fontWeight: "800",
+    // marginTop: 15,
+    color: 'white',
+    // marginLeft: 16,
   },
   searchBarContainer: {
     padding: 16,
-    paddingBottom: 5,
+    paddingBottom: 15,
     fontSize: 14,
     fontFamily: "Lato",
     flexDirection: "row",
+    backgroundColor: 'blue',
   },
-  cancelButtonContainer: {
+  searchBarRightButtons: {
     justifyContent: "center",
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
   },
   searchInputContainer: {
     flex: 1,
+    borderWidth: 2,
+    borderRadius: 28,
+    backgroundColor: 'white'
   },
   smallTitle: {
     color: "#373737",

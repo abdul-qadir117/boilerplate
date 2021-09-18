@@ -1,27 +1,13 @@
-import React, { useEffect } from "react";
-import {
-  SafeAreaView,
-  View,
-} from 'react-native';
-import {Text} from '../src/components/text'
+import 'react-native-gesture-handler';
+import React from 'react';
+import {StackNavigator} from '../src/navigation/stackNavigator';
 
-
-
-const App = props => {
-  
+const App = () => {
   return (
-    <SafeAreaView>
-      <View
-          style={{
-            backgroundColor: 'white',
-          }}>
-        <Text style={{  fontFamily: 'Lato',fontSize: 20, marginLeft: 20,}}>Boilerplate</Text>
-         
-        </View>
-    </SafeAreaView>
+    <>
+      <StackNavigator />
+    </>
   );
 };
-
-
 
 export default App;
