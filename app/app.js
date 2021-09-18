@@ -1,13 +1,9 @@
-import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StackNavigator} from '../src/navigation/stackNavigator';
+import Login from '../src/screens/login/login';
 
-const App = () => {
-  return (
-    <>
-      <StackNavigator />
-    </>
-  );
+const App = props => {
+  return <StackNavigator />;
 };
 
 export default App;

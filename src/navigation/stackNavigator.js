@@ -4,7 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {navigationRef} from './navigationService';
 
 // screens
-import { AuthStack } from './AuthStack';
+import {AuthStack} from './AuthStack';
 import BottomTabRouter from './bottomTabBarNavigator';
 // import DrawerRouter from './drawerNavigator';
 
@@ -14,6 +14,7 @@ export class StackNavigator extends Component {
   render() {
     return (
       <NavigationContainer ref={navigationRef}>
+
         <Stack.Navigator
     initialRouteName='Auth'
     screenOptions={{
@@ -21,6 +22,7 @@ export class StackNavigator extends Component {
     }}
     screenOptions={{ headerMode: 'none' }}
   >
+
           <Stack.Screen
             name="Auth"
             component={AuthStack}
@@ -31,6 +33,7 @@ export class StackNavigator extends Component {
             component={BottomTabRouter}
             options={{headerShown: false}}
           /> 
+
         </Stack.Navigator>
       </NavigationContainer>
     );
