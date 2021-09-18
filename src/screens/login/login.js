@@ -1,64 +1,61 @@
-import React, { useState } from "react";
-import { View, Image, Platform } from "react-native";
-import { Field } from "redux-form";
-import { Text, Screen, Button, Link } from "@components";
-import { TextInputField } from "@components/form";
-import styles from "./login.style";
+import React, {useState} from 'react';
+import {View, Image, Platform} from 'react-native';
+import {Field} from 'redux-form';
+import {Text, Screen, Button, Link} from '@components';
+import {TextInputField} from '@components/form';
+import styles from './login.style';
 
 const Login = props => {
-  const {  handleSubmit } = props;
+  const {handleSubmit} = props;
   const [imageContainerHeight, setImageContainerHeight] = useState(0);
 
   function submit(values) {
-    const { email, password } = values;
+    const {email, password} = values;
 
     const params = {
       email,
       password,
     };
-
-    props.requestSchoolLogin(params);
   }
 
   return (
-    <Screen>
+    <Screen ImageBackground imageUri={require('@assets/images/bg.png')}>
       <View style={styles.titleTopSpace} />
 
-      <Text scale style={styles.welcomeTitle}>
-        {"login.welcomeTitle"}
+      <Text scale style={styles.welcomeTitle} numberOfLines={1}>
+        {'Welcome Back'}
       </Text>
 
       <View style={styles.titleBottomSpace} />
 
       <Text scale style={styles.briefing}>
-        {"login.briefing"}
+        {'login.briefing'}
       </Text>
 
       <View style={styles.breifingBottomSpace} />
 
-      <View
+      {/* <View
         style={styles.imageContainer}
         onLayout={({
           nativeEvent: {
-            layout: { height },
+            layout: {height},
           },
         }) => {
           setImageContainerHeight(height);
-        }}
-      >
+        }}>
         <View>
           <Image
-            source={require("@assets/images/login-intro.png")}
-            resizeMode='contain'
-            style={{ height: imageContainerHeight, maxHeight: 300 }}
+            source={require('@assets/images/login-intro.png')}
+            resizeMode="contain"
+            style={{height: imageContainerHeight, maxHeight: 300}}
           />
 
           <Image
             style={styles.shapeCircle}
-            source={require("@assets/images/login-shape-3.png")}
+            source={require('@assets/images/login-shape-3.png')}
           />
         </View>
-      </View>
+      </View> */}
 
       <View style={styles.formTopSpace} />
 
@@ -86,8 +83,8 @@ const Login = props => {
 
         <Link
           primary
-          text={"login.forgotPasswordLink"}
-          onPress={() => props.navigation.navigate("TabBar")}
+          text={'login.forgotPasswordLink'}
+          onPress={() => props.navigation.navigate('TabBar')}
         />
 
         <View style={styles.forgotPasswordBottomSpace} />
@@ -95,8 +92,8 @@ const Login = props => {
         <Button
           loading={props.isLoggingInSchool}
           primary
-          title={"login.loginButtonTitle"}
-          onPress={()=>{}}
+          title={'login.loginButtonTitle'}
+          onPress={() => {}}
         />
 
         <View style={styles.buttonSpace} />
@@ -104,23 +101,21 @@ const Login = props => {
         <Button
           googleLogin
           icon={
-            <Image
-              source={require("@assets/images/google-login-button.png")}
-            />
+            <Image source={require('@assets/images/google-login-button.png')} />
           }
-          title={"login.googleLoginButtonTitle"}
+          title={'login.googleLoginButtonTitle'}
         />
       </View>
 
-      <Image
+      {/* <Image
         style={styles.shapeLeft}
-        source={require("@assets/images/login-shape-1.png")}
+        source={require('@assets/images/login-shape-1.png')}
       />
 
       <Image
         style={styles.shapeRight}
-        source={require("@assets/images/login-shape-2.png")}
-      />
+        source={require('@assets/images/login-shape-2.png')}
+      /> */}
     </Screen>
   );
 };

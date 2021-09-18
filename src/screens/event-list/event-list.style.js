@@ -1,11 +1,11 @@
-import { StyleSheet, Dimensions } from "react-native";
-const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
+import {StyleSheet, Dimensions} from 'react-native';
+const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    },
-    timelineHeadingContainer: {paddingVertical: 30, paddingHorizontal: 15},
+  },
+  timelineHeadingContainer: {paddingVertical: 30, paddingHorizontal: 15},
   timelineHeadingTitleText: {fontSize: 26, fontWeight: 'bold', color: '#222'},
   underline: {
     height: 3,
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6F4F4',
     height: 47,
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     // borderWidth: 2,
     shadowOpacity: 0.1,
     shadowOffset: {height: 4},
@@ -30,9 +30,11 @@ const styles = StyleSheet.create({
   monthText: {
     fontWeight: '600',
     fontSize: 14,
+    color: 'grey',
   },
   leftIcon: {
-    marginRight: 10,
+    // marginRight: 10,
+    // alignItems: 'flex-start',
   },
   rightIcon: {
     marginLeft: 10,

@@ -27,7 +27,7 @@ let Header = props => {
       ]}
     >
       {!props.hideTitle ? <View style={styles.topSpace} /> : null}
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row', padding: 10}}>
       {props.leftIconName || props.rightButtonText ? (
         <View style={styles.buttonsContainer}>
           {props.leftIconName ? (
@@ -36,10 +36,10 @@ let Header = props => {
                 props.onLeftButtonPress && props.onLeftButtonPress()
               }
             >
-              <View style={{ }}>
+              <View style={styles.leftIconView}>
               <Icon
                 name={props.leftIconName}
-                size={21}
+                size={19}
                 color={COLOR.HEADER_ICON}
                 style={styles.leftIcon}
               />
@@ -47,27 +47,10 @@ let Header = props => {
             </TouchableOpacity>
           ) : null}
 
-          <View style={styles.buttonsSpace} />
-
-          {props.rightButtonText ? (
-            <View style={styles.rightButtonContainer}>
-              {props.isRightButtonBusy ? (
-                <ActivityIndicator size='small' color='#1886DF' />
-              ) : (
-                <Link
-                  onPress={() =>
-                    props.onRightButtonPress && props.onRightButtonPress()
-                  }
-                  primary
-                  text={props.rightButtonText}
-                />
-              )}
-            </View>
-          ) : null}
-
           {}
         </View>
-      ) : null}
+        ) : null}
+        <View style={styles.buttonsSpace}/>
 
       {!props.hideTitle && props.title ? (
         <Text
@@ -80,6 +63,7 @@ let Header = props => {
           {props.title}
         </Text>
         ) : null}
+        <View style={styles.buttonsSpace}/>
         </View>
 
       {props.searchBar ? (

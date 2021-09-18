@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     // paddingBottom: 10,
   },
   topSpace: {
-    height: 27,
+    // height: 27,
   },
   shadow: {
     elevation: 5,
@@ -15,16 +15,19 @@ const styles = StyleSheet.create({
     shadowOffset: { height: 4 },
     zIndex: 10,
   },
+  leftIconView: {borderRadius: 40, borderWidth: 1,paddingLeft: 1, width: 35, height: 35, backgroundColor: 'black' },
   leftIcon: {
-    marginLeft: 16,
+    // marginLeft: 16,
+    padding: 7,
+    color: 'white',
   },
   title: {
-    fontFamily: "Lato",
-    fontSize: 28,
+    fontFamily: "Montserrat",
+    fontSize: 20,
     fontWeight: "800",
-    marginTop: 15,
-    color: COLOR.HEADER_TITLE,
-    marginLeft: 16,
+    // marginTop: 15,
+    color: 'white',
+    // marginLeft: 16,
   },
   searchBarContainer: {
     padding: 16,
