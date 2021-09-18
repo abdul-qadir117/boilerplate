@@ -9,7 +9,7 @@ export default [
       content: 'Event One Description',
     },
     time: {
-      content: moment('2021-03-05T14:21:21.273Z').format('ll'),
+      content: moment('2021-03-05').format('dddd'), // Wed, Jan 4, 2017
     },
   },
   {

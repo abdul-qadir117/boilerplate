@@ -1,15 +1,11 @@
-import React from "react";
-import {
-  TouchableOpacity,
-  View,
-  ActivityIndicator,
-} from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome5";
-import { COLOR } from "@config";
-import { Text } from "../";
-import styles from "./button.style";
+import React from 'react';
+import {TouchableOpacity, View, ActivityIndicator} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import {COLOR} from '@config';
+import {Text} from '../';
+import styles from './button.style';
 
-const Button: () => React$Node = props => {
+const Button = props => {
   function getIconColor() {
     if (props.invertedPrimary) {
       return COLOR.BUTTON_PRIMARY_BACKGROUND;
@@ -42,8 +38,7 @@ const Button: () => React$Node = props => {
         props.secondaryHollow ? styles.secondaryHollowContainer : undefined,
         props.googleLogin ? styles.googleLoginContainer : undefined,
         props.containerStyle,
-      ]}
-    >
+      ]}>
       {props.loading ? (
         <ActivityIndicator color={getIconColor()} />
       ) : (
@@ -54,10 +49,7 @@ const Button: () => React$Node = props => {
 
           {props.iconName ? (
             <View style={styles.iconContainer}>
-              <Icon
-                name={props.iconName}
-                color={getIconColor()}
-              />
+              <Icon name={props.iconName} color={getIconColor()} />
             </View>
           ) : null}
 
@@ -72,16 +64,13 @@ const Button: () => React$Node = props => {
               props.primaryHollow ? styles.primaryHollowTitle : undefined,
               props.secondaryHollow ? styles.secondaryHollowTitle : undefined,
               props.googleLogin ? styles.googleLoginTitle : undefined,
-            ]}
-          >
+            ]}>
             {props.title}
           </Text>
 
           {props.badgeText ? (
             <View style={styles.badgeContainer}>
-              <Text style={styles.badgeText}>
-                {props.badgeText}
-              </Text>
+              <Text style={styles.badgeText}>{props.badgeText}</Text>
             </View>
           ) : null}
         </View>
@@ -89,4 +78,4 @@ const Button: () => React$Node = props => {
     </TouchableOpacity>
   );
 };
-export { Button };
+export {Button};

@@ -19,18 +19,12 @@ const Login = props => {
   }
 
   return (
-    <Screen ImageBackground imageUri={require('@assets/images/bg.png')}>
+    <Screen ImageBackgorund={true} imageSource={require('@assets/icons/2.png')}>
       <View style={styles.titleTopSpace} />
 
-      <Text scale style={styles.welcomeTitle} numberOfLines={1}>
-        {'Welcome Back'}
-      </Text>
+      <Text style={styles.welcomeTitle}>Welcome Back</Text>
 
       <View style={styles.titleBottomSpace} />
-
-      <Text scale style={styles.briefing}>
-        {'login.briefing'}
-      </Text>
 
       <View style={styles.breifingBottomSpace} />
 
@@ -84,7 +78,7 @@ const Login = props => {
         <Link
           primary
           text={'login.forgotPasswordLink'}
-          onPress={() => props.navigation.navigate('TabBar')}
+          onPress={() => props.navigation.navigate('ForgotPassword')}
         />
 
         <View style={styles.forgotPasswordBottomSpace} />
@@ -93,18 +87,10 @@ const Login = props => {
           loading={props.isLoggingInSchool}
           primary
           title={'login.loginButtonTitle'}
-          onPress={() => {}}
+          onPress={() => props.navigation.navigate('TabBar')}
         />
 
         <View style={styles.buttonSpace} />
-
-        <Button
-          googleLogin
-          icon={
-            <Image source={require('@assets/images/google-login-button.png')} />
-          }
-          title={'login.googleLoginButtonTitle'}
-        />
       </View>
 
       {/* <Image

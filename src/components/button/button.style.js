@@ -1,13 +1,14 @@
-import { StyleSheet } from "react-native";
-import { COLOR } from "@config";
+import {StyleSheet} from 'react-native';
+import {COLOR} from '@config';
 
 const styles = StyleSheet.create({
   container: {
     borderRadius: 8,
-    paddingHorizontal: 10,
-    height: 36,
-    alignItems: "center",
-    justifyContent: "center",
+    paddingHorizontal: 20,
+    height: 45,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // width: 80,
   },
   invertedPrimaryContainer: {},
   primaryContainer: {
@@ -35,25 +36,25 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR.BUTTON_PRIMARY_TEXT,
   },
   title: {
-    fontWeight: "700",
+    fontWeight: '700',
     fontSize: 14,
   },
   primaryTitle: {
-    fontWeight: "700",
+    fontWeight: '700',
     color: COLOR.BUTTON_PRIMARY_TITLE,
   },
   primaryHollowTitle: {
-    fontWeight: "700",
+    fontWeight: '700',
     color: COLOR.BUTTON_HOLLOW_PRIMARY_TITLE,
   },
   googleLoginTitle: {
-    fontWeight: "700",
+    fontWeight: '700',
     color: COLOR.BUTTON_GOOGLE_LOGIN_TTILE,
   },
   contentContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   iconContainer: {
     marginRight: 5,
@@ -62,15 +63,15 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR.BUTTON_HOLLOW_BADGE_BACKGROUND,
     height: 23,
     borderRadius: 8,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginLeft: 10,
     paddingHorizontal: 10,
   },
   badgeText: {
     color: COLOR.BUTTON_HOLLOW_BADGE_TEXT,
     fontSize: 16,
-    fontWeight: "700",
+    fontWeight: '700',
   },
 });
 

@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React, {useState} from 'react';
 import {
   View,
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
-} from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome5";
-import { COLOR } from "@config";
-import styles from "./search-bar.style";
+} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import {COLOR} from '@config';
+import styles from './search-bar.style';
 
-const SearchBar: () => React$Node = props => {
-  const [value, setValue] = useState("");
-  const { onChangeText, ...rest } = props;
+const SearchBar = props => {
+  const [value, setValue] = useState('');
+  const {onChangeText, ...rest} = props;
   let inputRef;
 
   function clearInput() {
     inputRef.clear();
-    setValue("");
+    setValue('');
   }
 
   function onChange(text) {
@@ -27,7 +27,7 @@ const SearchBar: () => React$Node = props => {
   return (
     <View style={[styles.container, props.containerStyle]}>
       <Icon
-        name='search'
+        name="search"
         size={16}
         color={COLOR.SEARCH_BAR_ICON}
         style={styles.icon}
@@ -45,16 +45,15 @@ const SearchBar: () => React$Node = props => {
       />
 
       {props.loading ? (
-        <ActivityIndicator size='small' color='lightgrey' />
+        <ActivityIndicator size="small" color="lightgrey" />
       ) : null}
 
-      {value !== "" ? (
+      {value !== '' ? (
         <TouchableOpacity
           style={styles.clearButtonContainer}
-          onPress={() => clearInput()}
-        >
+          onPress={() => clearInput()}>
           <Icon
-            name='times-circle'
+            name="times-circle"
             size={16}
             color={COLOR.SEARCH_BAR_ICON}
             style={styles.clearButtonIcon}
@@ -66,4 +65,4 @@ const SearchBar: () => React$Node = props => {
   );
 };
 
-export { SearchBar };
+export {SearchBar};
