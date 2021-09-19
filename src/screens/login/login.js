@@ -8,6 +8,7 @@ import {
   ImageBackground,
   StatusBar,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Text, Screen, Button, Link} from '@components';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {TextInputField} from '@components/form';
@@ -43,8 +44,16 @@ const Login = ({navigation}) => {
     })
       .then(async response => {
         let data = await response.json();
-        console.log(data.token);
+        // console.log(data.token);
         if (data.status_code === 200 && data.data.user.role === 'student') {
+          const setToken = async value => {
+            try {
+              await AsyncStorage.setItem('token', data.token);
+              console.log('asdasdasda', data.token);
+            } catch (e) {
+              // saving error
+            }
+          };
           navigation.navigate('TabBar', {token: data.token});
         } else {
           alert(data.message);

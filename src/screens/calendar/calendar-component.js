@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, FlatList, ActivityIndicator} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Text, Screen, Button, Link} from '@components';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {Calendar} from 'react-native-calendars';
@@ -7,13 +8,23 @@ import CommonHeader from '../../components/common-header/commonHeader';
 import CardComponent from '../../components/card/card';
 
 const CalendarComponent = ({route}) => {
-  const {token} = route.params;
+  //   const {token} = route.params;
   const [date, setDate] = useState('');
   const [interventions, setInterventions] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log('CalendarComponent: ', token);
+    const getToken = async () => {
+      try {
+        const value = await AsyncStorage.getItem('token');
+        if (value !== null) {
+          // value previously stored
+        }
+      } catch (e) {
+        // error reading value
+      }
+    };
+    console.log('CalendarComponent: ', getToken);
     setLoading(true);
     fetch(
       'https://tieredtracker.com/api/all-interventions?joined=1&assigned=1&close_full=1&available=1&end_date=' +
@@ -24,7 +35,7 @@ const CalendarComponent = ({route}) => {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${getToken}`,
         },
       },
     )
