@@ -14,26 +14,48 @@ import {TextInputField} from '@components/form';
 import styles from './login.style';
 import CalendarComponent from '../calendar/calendar-component';
 
-const Login = props => {
+const Login = ({navigation}) => {
   // const { handleSubmit } = props;
   const [imageContainerHeight, setImageContainerHeight] = useState(0);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  function submit(values) {
-    const {email, password} = values;
+  const loadData = () => {
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-    const params = {
-      email,
-      password,
-    };
+    // if (reg.test(email) === false) {
+    //   setToastMessage('Email is Not Correct');
 
-    console.log('Params', params);
-    // props.requestSchoolLogin(params);
-  }
+    //   return false;
+    // } else {
+
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+
+    fetch('https://tieredtracker.com/api/login', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formData,
+    })
+      .then(async response => {
+        let data = await response.json();
+        console.log(data.token);
+        if (data.status_code === 200 && data.data.user.role === 'student') {
+          navigation.navigate('CalendarComponent', {token: data.token});
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch(error => console.log('Something went wrong', error));
+  };
 
   return (
     <Screen>
       <View style={styles.container}>
-        <StatusBar backgroundColor="black" barStyle="dark-content" />
         {/* <CalendarComponent /> */}
         <View style={styles.headerContainer}>
           <ImageBackground
@@ -44,14 +66,26 @@ const Login = props => {
           </ImageBackground>
         </View>
         <View style={styles.formContainer}>
-          <TextInput style={styles.inputField} placeholder="Email" />
-          <TextInput style={styles.inputField} placeholder="Password" />
+          <TextInput
+            style={styles.inputField}
+            placeholder="Email"
+            value={email}
+            onChangeText={e => setEmail(e)}
+          />
+          <TextInput
+            style={styles.inputField}
+            placeholder="Password"
+            value={password}
+            onChangeText={e => setPassword(e)}
+          />
           <View style={styles.buttonContainer}>
             <TouchableOpacity>
               <Text style={styles.signInText}>Sign In</Text>
             </TouchableOpacity>
             <View style={styles.nextButtonContainer}>
-              <TouchableOpacity style={styles.nextButton}>
+              <TouchableOpacity
+                onPress={() => loadData()}
+                style={styles.nextButton}>
                 <Icon name="angle-right" size={60} color="white" />
               </TouchableOpacity>
               <TouchableOpacity>

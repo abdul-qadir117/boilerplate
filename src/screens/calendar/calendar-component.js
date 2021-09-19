@@ -1,44 +1,54 @@
-import React, {useState} from 'react';
-import {View, FlatList} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, FlatList, ActivityIndicator} from 'react-native';
 import {Text, Screen, Button, Link} from '@components';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {Calendar} from 'react-native-calendars';
 import CommonHeader from '../../components/common-header/commonHeader';
 import CardComponent from '../../components/card/card';
 
-const CalendarComponent = props => {
+const CalendarComponent = ({route}) => {
+  const {token} = route.params;
   const [date, setDate] = useState('');
-  const DATA = [
-    {
-      id: '1',
-      name: 'J.Doe',
-      discription: 'Meeting with',
-      time: '03:15 PM',
-      date: '12March',
-    },
-    {
-      id: '2',
-      name: 'J.Doe',
-      discription: 'Call with',
-      time: '03:16 PM',
-      date: '12March',
-    },
-    {
-      id: '3',
-      name: 'J.Doe',
-      discription: 'Meeting with',
-      time: '03:15 PM',
-      date: '12March',
-    },
-  ];
+  const [interventions, setInterventions] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    console.log('CalendarComponent: ', token);
+    setLoading(true);
+    fetch(
+      'https://tieredtracker.com/api/all-interventions?joined=1&assigned=1&close_full=1&available=1&end_date=' +
+        date +
+        '&start_date=' +
+        date,
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+      .then(async response => {
+        let data = await response.json();
+        console.log(data.status);
+        if (data.status === true) {
+          console.log(loading, '==>loading');
+          setLoading(false);
+          setInterventions(data.data.interventions);
+        }
+      })
+      .catch(error => console.log('Something went wrong', error));
+  }, [date]);
+
   const renderItem = ({item}) => (
     <CardComponent
-      text={item.discription}
-      name={item.name}
-      time={item.time}
-      date={item.date}
+      text={item.room}
+      name={item.teacher}
+      time={item.start}
+      date={item.end}
     />
   );
+
   return (
     <Screen style={{marginTop: 50}}>
       <CommonHeader title={date} />
@@ -90,11 +100,15 @@ const CalendarComponent = props => {
         }}>
         HOLIDAYS IN MARCH
       </Text>
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
+      {loading === true ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <FlatList
+          data={interventions}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+      )}
     </Screen>
   );
 };
