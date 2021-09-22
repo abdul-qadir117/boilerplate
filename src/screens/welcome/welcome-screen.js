@@ -4,6 +4,7 @@ import {Text, Screen, Button, Link} from '@components';
 import styles from './welcome-screen.style';
 
 const WelcomeScreen = props => {
+  const {firstName, lastName} = props.route.params;
   return (
     <Screen ImageBackground imageSource={require('@assets/icons/dots.png')}>
       <View style={{alignItems: 'center'}}>
@@ -24,8 +25,8 @@ const WelcomeScreen = props => {
           flexDirection: 'row',
           justifyContent: 'center',
         }}>
-        <Text style={styles.name}>First Name</Text>
-        <Text style={styles.name}>Last Name</Text>
+        <Text style={styles.name}>{firstName}</Text>
+        <Text style={styles.name}>{lastName}</Text>
       </View>
       <View style={{flex: 1}} />
       <View style={{width: 200, alignSelf: 'center', justifyContent: 'center'}}>

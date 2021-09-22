@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, FlatList, ActivityIndicator} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Text, Screen, Button, Link} from '@components';
+import {Text, Screen, Button, Link, Header} from '@components';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {Calendar} from 'react-native-calendars';
 import CommonHeader from '../../components/common-header/commonHeader';
@@ -9,22 +9,14 @@ import CardComponent from '../../components/card/card';
 
 const CalendarComponent = ({route}) => {
   //   const {token} = route.params;
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState('2021-09-10');
   const [interventions, setInterventions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [token, setToken] = useState('');
 
   useEffect(() => {
-    const getToken = async () => {
-      try {
-        const value = await AsyncStorage.getItem('token');
-        if (value !== null) {
-          // value previously stored
-        }
-      } catch (e) {
-        // error reading value
-      }
-    };
-    console.log('CalendarComponent: ', getToken);
+    // console.log('CalendarComponent: ', getToken);
+    getToken();
     setLoading(true);
     fetch(
       'https://tieredtracker.com/api/all-interventions?joined=1&assigned=1&close_full=1&available=1&end_date=' +
@@ -35,7 +27,7 @@ const CalendarComponent = ({route}) => {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${getToken}`,
+          Authorization: `Bearer ${token}`,
         },
       },
     )
@@ -51,6 +43,20 @@ const CalendarComponent = ({route}) => {
       .catch(error => console.log('Something went wrong', error));
   }, [date]);
 
+  const getToken = async () => {
+    try {
+      const value = await AsyncStorage.getItem('token');
+      console.log('token', value);
+      if (value !== null) {
+        // value previously stored
+        setToken(value);
+        console.log('token: ', value);
+      }
+    } catch (e) {
+      // error reading value
+    }
+  };
+
   const renderItem = ({item}) => (
     <CardComponent
       text={item.room}
@@ -62,6 +68,7 @@ const CalendarComponent = ({route}) => {
 
   return (
     <Screen style={{marginTop: 50}}>
+      <Header leftIconName={'power-off'} title={'Your Calendar'} />
       <CommonHeader title={date} />
       <Calendar
         markingType={'period'}

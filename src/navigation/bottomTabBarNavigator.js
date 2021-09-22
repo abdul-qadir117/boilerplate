@@ -11,10 +11,22 @@ const Tab = createBottomTabNavigator();
 export default function BottomTabRouter() {
   return (
     <Tab.Navigator
-      initialRouteName="Events"
+      initialRouteName="CalendarComponent"
       screenOptions={{
         headerShown: false,
       }}>
+      <Tab.Screen
+        name="CalendarComponent"
+        component={CalendarComponent}
+        screenOptions={{headerMode: 'none', activeTintColor: '#000000'}}
+        options={{
+          headerMode: 'screen',
+          title: 'Interventions',
+          tabBarIcon: ({color, size}) => (
+            <Fontisto name="date" color={'black'} size={size} />
+          ),
+        }}
+      />
       <Tab.Screen
         name="Events"
         component={EventList}
@@ -23,19 +35,7 @@ export default function BottomTabRouter() {
           headerMode: 'screen',
           title: 'Events',
           tabBarIcon: ({color, size}) => (
-            <Fontisto name="pie-chart-1" color={'black'} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="CalendarComponent"
-        component={CalendarComponent}
-        screenOptions={{headerMode: 'none', activeTintColor: '#000000'}}
-        options={{
-          headerMode: 'screen',
-          title: 'Events',
-          tabBarIcon: ({color, size}) => (
-            <Fontisto name="pie-chart-1" color={'black'} size={size} />
+            <Fontisto name="home" color={'black'} size={size} />
           ),
         }}
       />

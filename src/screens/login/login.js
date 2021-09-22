@@ -44,22 +44,31 @@ const Login = ({navigation}) => {
     })
       .then(async response => {
         let data = await response.json();
-        // console.log(data.token);
+        console.log(data);
         if (data.status_code === 200 && data.data.user.role === 'student') {
-          const setToken = async value => {
-            try {
-              await AsyncStorage.setItem('token', data.token);
-              console.log('asdasdasda', data.token);
-            } catch (e) {
-              // saving error
-            }
-          };
-          navigation.navigate('TabBar', {token: data.token});
+          setToken(
+            data.token,
+            data.data.user.givenname,
+            data.data.user.familyname,
+          );
+
+          navigation.navigate('WelcomeScreen', {
+            firstName: data.data.user.givenname,
+            lastName: data.data.user.familyname,
+          });
         } else {
           alert(data.message);
         }
       })
       .catch(error => console.log('Something went wrong', error));
+  };
+  const setToken = async (token, firstname, lastname) => {
+    try {
+      await AsyncStorage.setItem('token', token);
+      console.log('asdasdasda', token);
+    } catch (e) {
+      // saving error
+    }
   };
 
   return (
@@ -69,7 +78,7 @@ const Login = ({navigation}) => {
         <View style={styles.headerContainer}>
           <ImageBackground
             style={styles.headerContainerImage}
-            source={require('../../assets/icons/2.png')}>
+            source={require('../../assets/images/loginbg.png')}>
             <Text style={{...styles.welcomeText, marginTop: 170}}>Welcome</Text>
             <Text style={styles.welcomeText}>Back</Text>
           </ImageBackground>
@@ -77,12 +86,15 @@ const Login = ({navigation}) => {
         <View style={styles.formContainer}>
           <TextInput
             style={styles.inputField}
+            autoCapitalize="none"
             placeholder="Email"
             value={email}
             onChangeText={e => setEmail(e)}
           />
           <TextInput
             style={styles.inputField}
+            autoCapitalize="none"
+            secureTextEntry={true}
             placeholder="Password"
             value={password}
             onChangeText={e => setPassword(e)}
