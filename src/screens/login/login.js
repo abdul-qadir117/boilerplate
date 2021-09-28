@@ -29,38 +29,45 @@ const Login = ({navigation}) => {
 
     //   return false;
     // } else {
+    if (email === '' || password === '') {
+      alert('Email and Password are required');
+    } else {
+      const formData = new FormData();
+      formData.append('email', email);
+      formData.append('password', password);
 
-    const formData = new FormData();
-    formData.append('email', email);
-    formData.append('password', password);
-
-    fetch('https://tieredtracker.com/api/login', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-      },
-      body: formData,
-    })
-      .then(async response => {
-        let data = await response.json();
-        console.log(data);
-        if (data.status_code === 200 && data.data.user.role === 'student') {
-          setToken(
-            data.token,
-            data.data.user.givenname,
-            data.data.user.familyname,
-          );
-
-          navigation.navigate('WelcomeScreen', {
-            firstName: data.data.user.givenname,
-            lastName: data.data.user.familyname,
-          });
-        } else {
-          alert(data.message);
-        }
+      fetch('https://tieredtracker.com/api/login', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+        },
+        body: formData,
       })
-      .catch(error => console.log('Something went wrong', error));
+        .then(async response => {
+          let data = await response.json();
+          console.log(data);
+          if (data.status_code === 200) {
+            if (data.data.user.role === 'student') {
+              setToken(
+                data.token,
+                data.data.user.givenname,
+                data.data.user.familyname,
+              );
+
+              navigation.navigate('WelcomeScreen', {
+                firstName: data.data.user.givenname,
+                lastName: data.data.user.familyname,
+              });
+            } else {
+              alert('Please login to web portal');
+            }
+          } else {
+            alert(data.message);
+          }
+        })
+        .catch(error => console.log('Something went wrong', error));
+    }
   };
   const setToken = async (token, firstname, lastname) => {
     try {
@@ -111,7 +118,7 @@ const Login = ({navigation}) => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => navigation.navigate('ForgotPassword')}>
-                <Text style={styles.forgetPassword}>Forget Password</Text>
+                <Text style={styles.forgetPassword}>Forgot Password</Text>
               </TouchableOpacity>
             </View>
           </View>

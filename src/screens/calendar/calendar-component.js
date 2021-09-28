@@ -13,16 +13,31 @@ const CalendarComponent = ({route}) => {
   const [interventions, setInterventions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState('');
-
+  const [months, setMonths] = useState();
+  var date1 = new Date();
+  var date2 = date1.toString().split('T')[0];
+  console.log(date2);
   useEffect(() => {
     // console.log('CalendarComponent: ', getToken);
+    if (months === undefined || months === null || months === '') {
+      if (new Date(date).getMonth() + 1 > 9) {
+        setMonths(new Date(date).getMonth() + 1);
+      } else {
+        setMonths(0 + new Date(date).getMonth() + 1);
+      }
+    }
     getToken();
+    console.log(new Date(date).getMonth() + 1, 'Mpnth == ? ');
     setLoading(true);
     fetch(
-      'https://tieredtracker.com/api/all-interventions?joined=1&assigned=1&close_full=1&available=1&end_date=' +
-        date +
+      'https://tieredtracker.com/api/all-holidays?&end_date=' +
+        `2021-${months}-28` +
         '&start_date=' +
-        date,
+        `2021-${months}-1`,
+      // 'https://tieredtracker.com/api/all-interventions?joined=1&assigned=1&close_full=1&available=1&end_date=' +
+      //   date +
+      //   '&start_date=' +
+      //   date,
       {
         headers: {
           Accept: 'application/json',
@@ -33,15 +48,19 @@ const CalendarComponent = ({route}) => {
     )
       .then(async response => {
         let data = await response.json();
-        console.log(data.status);
+        console.log(data);
         if (data.status === true) {
           console.log(loading, '==>loading');
+          console.log(data.data.holidays.length, '==>data');
+          if (data.data.holidays.length === 0) {
+            alert('There is no holiday this month');
+          }
           setLoading(false);
-          setInterventions(data.data.interventions);
+          setInterventions(data.data.holidays);
         }
       })
       .catch(error => console.log('Something went wrong', error));
-  }, [date]);
+  }, [months]);
 
   const getToken = async () => {
     try {
@@ -60,9 +79,9 @@ const CalendarComponent = ({route}) => {
   const renderItem = ({item}) => (
     <CardComponent
       text={item.room}
-      name={item.teacher}
+      name={item.name}
       time={item.start}
-      date={item.end}
+      date={item.interventionTime}
     />
   );
 
@@ -71,8 +90,10 @@ const CalendarComponent = ({route}) => {
       <Header leftIconName={'power-off'} title={'Your Calendar'} />
       <CommonHeader title={date} />
       <Calendar
-        markingType={'period'}
+        markingType={'multi-dot'}
+        current={new Date()}
         markedDates={{
+          '2021-09-16': {selected: true, marked: true, selectedColor: 'blue'},
           '2021-09-15': {
             selected: true,
             marked: true,
@@ -92,7 +113,22 @@ const CalendarComponent = ({route}) => {
             dotColor: 'white',
           },
           '2021-09-24': {color: '#1a53ff', textColor: 'white'},
-          '2021-09-25': {endingDay: true, color: '#1a53ff', textColor: 'white'},
+        }}
+        // Handler which gets executed when press arrow icon left. It receive a callback can go back month
+        onPressArrowLeft={(subtractMonth, day) => {
+          subtractMonth();
+        }}
+        // Handler which gets executed when press arrow icon right. It receive a callback can go next month
+        onPressArrowRight={addMonth => addMonth()}
+        onMonthChange={month => {
+          let currentMonth = month.month.toString();
+          if (month.month > 9) {
+            setMonths(month.month);
+          } else {
+            setMonths(0 + month.month);
+          }
+          // setMonths(month.month);
+          console.log('month changed', typeof currentMonth);
         }}
         onDayPress={day => {
           setDate(day.dateString);

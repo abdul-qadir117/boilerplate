@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 16,
-    marginRight: 20,
+    marginRight: 2,
     color: 'grey',
     fontWeight: '600',
   },
