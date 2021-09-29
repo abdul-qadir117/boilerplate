@@ -18,6 +18,7 @@ import {withNavigation} from '@react-navigation/compat';
 import data from './timeline.data';
 import styles from './event-list.style';
 import CalendarPopup from '../../components/modals/calendar-popup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const EventList = props => {
   const [selectedValue, setSelectedValue] = useState('java');
@@ -33,11 +34,31 @@ const EventList = props => {
   const [teacherAssigned, setTeacherAssigned] = useState(1);
   const [studentJoined, setStudentJoined] = useState(1);
   const [close_full, setCloseFull] = useState(1);
+  const [month, setMonth] = useState();
   var prevDate = '';
+  React.useEffect(() => {
+    console.log('focus');
+    getMonthh();
+
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      // The screen is focused
+      // Call any action
+      console.log('focus');
+      getMonthh();
+    });
+
+    //Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [props.navigation]);
+  useEffect(() => {
+    console.log('HEY SH');
+    getMonthh();
+  });
   useEffect(() => {
     // console.log('CalendarComponent: ', getToken);
     console.log('start-date ==>', startDate.dateString, endDate);
     getToken();
+
     setLoading(true);
     fetch(
       'https://tieredtracker.com/api/all-interventions?joined=' +
@@ -49,9 +70,9 @@ const EventList = props => {
         '&available=' +
         available +
         '&end_date=' +
-        endDate.dateString +
+        `2021-${month}-28` +
         '&start_date=' +
-        startDate.dateString,
+        `2021-${month}-1`,
       {
         headers: {
           Accept: 'application/json',
@@ -82,6 +103,7 @@ const EventList = props => {
     teacherAssigned,
     studentJoined,
     close_full,
+    month,
   ]);
 
   const getToken = async () => {
@@ -92,6 +114,19 @@ const EventList = props => {
         // value previously stored
         setToken(value);
         console.log('token: in Event ', value);
+      }
+    } catch (e) {
+      // error reading value
+    }
+  };
+  const getMonthh = async () => {
+    try {
+      const value = await AsyncStorage.getItem('month');
+      console.log('monthh', value);
+      if (value !== null) {
+        // value previously stored
+        setMonth(value);
+        console.log('token: ', value);
       }
     } catch (e) {
       // error reading value
@@ -249,7 +284,7 @@ const EventList = props => {
             <Picker.Item label="Full/Close" value="Full/Close" />
           </Picker> */}
         </View>
-        <View style={{flex: 1}} />
+        {/* <View style={{flex: 1}} />
         <Text style={styles.monthText}>Start Date {startDate.toString}</Text>
         <CalendarPopup
           title="Start Date"
@@ -257,7 +292,7 @@ const EventList = props => {
         />
         <Text style={{...styles.monthText, marginLeft: 20}}>End Date</Text>
         <CalendarPopup title="End Date" onPressed={data => setEndDate(data)} />
-        <View style={{flex: 1}} />
+        <View style={{flex: 1}} /> */}
       </View>
       <View
         style={{

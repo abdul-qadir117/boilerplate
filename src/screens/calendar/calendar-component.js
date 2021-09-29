@@ -27,6 +27,7 @@ const CalendarComponent = ({route}) => {
       }
     }
     getToken();
+    setMonthData(months);
     console.log(new Date(date).getMonth() + 1, 'Mpnth == ? ');
     setLoading(true);
     fetch(
@@ -73,6 +74,15 @@ const CalendarComponent = ({route}) => {
       }
     } catch (e) {
       // error reading value
+    }
+  };
+
+  const setMonthData = async m => {
+    try {
+      await AsyncStorage.setItem('month', m.toString());
+      console.log('asdasdasda', m);
+    } catch (e) {
+      // saving error
     }
   };
 

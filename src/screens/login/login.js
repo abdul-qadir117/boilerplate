@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   StatusBar,
+  ScrollView,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Text, Screen, Button, Link} from '@components';

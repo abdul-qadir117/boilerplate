@@ -1,5 +1,6 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
+import {Image} from 'react-native';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 
 //Screens
@@ -23,7 +24,10 @@ export default function BottomTabRouter() {
           headerMode: 'screen',
           title: 'Interventions',
           tabBarIcon: ({color, size}) => (
-            <Fontisto name="date" color={'black'} size={size} />
+            <Image
+              source={require('@assets/icons/home.png')}
+              style={{width: 36, height: 36, tintColor: 'black'}}
+            />
           ),
         }}
       />
@@ -35,7 +39,25 @@ export default function BottomTabRouter() {
           headerMode: 'screen',
           title: 'Events',
           tabBarIcon: ({color, size}) => (
-            <Fontisto name="home" color={'black'} size={size} />
+            <Image
+              source={require('@assets/icons/calendar.png')}
+              style={{width: 36, height: 36, tintColor: 'black'}}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Edit Profile"
+        component={EventList}
+        screenOptions={{headerMode: 'none', activeTintColor: '#000000'}}
+        options={{
+          headerMode: 'screen',
+          title: 'Events',
+          tabBarIcon: ({color, size}) => (
+            <Image
+              source={require('@assets/icons/editProfile.png')}
+              style={{width: 36, height: 36, tintColor: 'black'}}
+            />
           ),
         }}
       />
