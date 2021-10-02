@@ -33,8 +33,10 @@ const styles = StyleSheet.create({
     color: 'grey',
   },
   leftIcon: {
-    // marginRight: 10,
-    // alignItems: 'flex-start',
+    paddingTop: 10,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    marginLeft: 10,
   },
   rightIcon: {
     marginLeft: 10,

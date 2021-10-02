@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import {withNavigation} from '@react-navigation/compat';
 import data from './timeline.data';
 import styles from './event-list.style';
+
 import CalendarPopup from '../../components/modals/calendar-popup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -266,33 +267,19 @@ const EventList = props => {
             justifyContent: 'center',
           }}>
           <TouchableOpacity
+            style={{flexDirection: 'row', alignItems: 'center'}}
             onPress={() => {
               setModalVisible(true);
             }}>
-            <Text style={styles.leftIcon}>Sort by:</Text>
+            <Text style={styles.leftIcon}>Sort by</Text>
+            <Icon
+              name={'sort-down'}
+              size={21}
+              color={'#818E9C'}
+              style={styles.leftIcon}
+            />
           </TouchableOpacity>
-          {/* 
-          <Picker
-            selectedValue={selectedValue}
-            style={{height: 30, width: 200}}
-            onValueChange={(itemValue, itemIndex) =>
-              setSelectedValue(itemValue)
-            }>
-            <Picker.Item label="Available" value="Available" />
-            <Picker.Item label="Teacher assigned" value="Teacher assigned" />
-            <Picker.Item label="Student Joined" value="Student Joined" />
-            <Picker.Item label="Full/Close" value="Full/Close" />
-          </Picker> */}
         </View>
-        {/* <View style={{flex: 1}} />
-        <Text style={styles.monthText}>Start Date {startDate.toString}</Text>
-        <CalendarPopup
-          title="Start Date"
-          onPressed={data => setStartDate(data)}
-        />
-        <Text style={{...styles.monthText, marginLeft: 20}}>End Date</Text>
-        <CalendarPopup title="End Date" onPressed={data => setEndDate(data)} />
-        <View style={{flex: 1}} /> */}
       </View>
       <View
         style={{
