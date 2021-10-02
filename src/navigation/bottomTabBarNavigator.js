@@ -22,7 +22,7 @@ export default function BottomTabRouter() {
         screenOptions={{headerMode: 'none', activeTintColor: '#000000'}}
         options={{
           headerMode: 'screen',
-          title: 'Interventions',
+          title: 'Home',
           tabBarIcon: ({color, size}) => (
             <Image
               source={require('@assets/icons/home.png')}
@@ -37,7 +37,7 @@ export default function BottomTabRouter() {
         screenOptions={{headerMode: 'none', activeTintColor: '#000000'}}
         options={{
           headerMode: 'screen',
-          title: 'Events',
+          title: 'Interventions',
           tabBarIcon: ({color, size}) => (
             <Image
               source={require('@assets/icons/calendar.png')}
@@ -52,7 +52,7 @@ export default function BottomTabRouter() {
         screenOptions={{headerMode: 'none', activeTintColor: '#000000'}}
         options={{
           headerMode: 'screen',
-          title: 'Events',
+          title: 'Edit Profile',
           tabBarIcon: ({color, size}) => (
             <Image
               source={require('@assets/icons/editProfile.png')}

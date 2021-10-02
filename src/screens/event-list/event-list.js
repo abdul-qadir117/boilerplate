@@ -9,6 +9,7 @@ import {
   Picker,
   Modal,
   Pressable,
+  Alert,
 } from 'react-native';
 import {Text, Screen, Button, Link} from '@components';
 import {Header} from '../../components';
@@ -34,7 +35,8 @@ const EventList = props => {
   const [teacherAssigned, setTeacherAssigned] = useState(1);
   const [studentJoined, setStudentJoined] = useState(1);
   const [close_full, setCloseFull] = useState(1);
-  const [month, setMonth] = useState();
+  const [month, setMonth] = useState(1);
+  const [day, setDay] = useState(1);
   var prevDate = '';
   React.useEffect(() => {
     console.log('focus');
@@ -56,7 +58,15 @@ const EventList = props => {
   });
   useEffect(() => {
     // console.log('CalendarComponent: ', getToken);
-    console.log('start-date ==>', startDate.dateString, endDate);
+    console.log(
+      'start-date ==>',
+      startDate.dateString,
+      endDate,
+      '&end_date=' +
+        `2021-${month}-${day * 1 + 5}` +
+        '&start_date=' +
+        `2021-${month}-${day}`,
+    );
     getToken();
 
     setLoading(true);
@@ -70,9 +80,9 @@ const EventList = props => {
         '&available=' +
         available +
         '&end_date=' +
-        `2021-${month}-28` +
+        `2021-${month}-${day * 1 + 5}` +
         '&start_date=' +
-        `2021-${month}-1`,
+        `2021-${month}-${day}`,
       {
         headers: {
           Accept: 'application/json',
@@ -104,6 +114,7 @@ const EventList = props => {
     studentJoined,
     close_full,
     month,
+    day,
   ]);
 
   const getToken = async () => {
@@ -121,11 +132,16 @@ const EventList = props => {
   };
   const getMonthh = async () => {
     try {
-      const value = await AsyncStorage.getItem('month');
-      console.log('monthh', value);
-      if (value !== null) {
+      // const value = await AsyncStorage.getItem('month');
+      const value1 = await AsyncStorage.getItem('day');
+
+      console.log('monthh', value1, value1.split('-')[2], value1.split('-')[1]);
+      const monthsLocal = value1.split('-')[1];
+      const daysLocal = value1.split('-')[2];
+      if (value1 !== null) {
         // value previously stored
-        setMonth(value);
+        setMonth(monthsLocal);
+        setDay(daysLocal);
         console.log('token: ', value);
       }
     } catch (e) {
@@ -158,7 +174,7 @@ const EventList = props => {
       .then(async response => {
         let data = await response.json();
         console.log(data, 'Jooined interventions');
-        alert(data.message);
+        Alert.alert(data.message);
       })
       .catch(error => console.log('Something went wrong', error));
   };
@@ -253,7 +269,7 @@ const EventList = props => {
   );
   return (
     <Screen>
-      <Header leftIconName={'bars'} title={'EVENTS LIST'} searchBar />
+      <Header title={'INTERVENTIONS LIST'} searchBar />
       <View style={styles.monthView}>
         {/* <Text style={styles.leftIcon}>Sort by:</Text> */}
         <View
@@ -321,7 +337,6 @@ const EventList = props => {
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-            alert('Modal has been closed.');
             setModalVisible(!modalVisible);
           }}>
           <View style={styles.centeredView}>

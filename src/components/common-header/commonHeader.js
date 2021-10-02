@@ -9,8 +9,8 @@ const CommonHeader = ({title}) => {
     <View style={styles.headerContainer}>
       <Icon name="left" size={25} color="white" />
       <Text style={styles.headerText}>{title}</Text>
-
-      <Icon name="pluscircleo" size={35} color="white" />
+      <View></View>
+      {/* <Icon name="pluscircleo" size={35} color="white" /> */}
     </View>
   );
 };
