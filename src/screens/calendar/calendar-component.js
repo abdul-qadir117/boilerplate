@@ -141,6 +141,7 @@ const CalendarComponent = ({route}) => {
           //   console.log('=========>False');
           // }
           const dayy = day.dateString;
+
           //const dd = day.toISOString().split('T')[0];
           const dayplus = dayy.split('-')[2] * 1 + 1;
           const dayplustwo = dayy.split('-')[2] * 1 + 2;
@@ -152,7 +153,7 @@ const CalendarComponent = ({route}) => {
           const fullDatetwo = yearplus + '-' + monthplus + '-' + dayplustwo;
           const fullDatethree = yearplus + '-' + monthplus + '-' + dayplusthree;
           const fullDatefour = yearplus + '-' + monthplus + '-' + dayplusfour;
-
+          var funFullDate;
           // alert(fullDate);
           // if (!markedDates) {
 
@@ -161,6 +162,40 @@ const CalendarComponent = ({route}) => {
           // markedDates[dayy] = {};
           // setMarkedDates();
           // markedDates.constructor;
+          // getNextDate();
+          function getNextDate(dayNum) {
+            // const dayNum = 2;
+            const currentDayInMilli = new Date(dayy).getTime();
+            const oneDay = 1000 * 60 * 60 * 24;
+            const nextDayInMilli = currentDayInMilli + oneDay * dayNum;
+            const nextDate = new Date(nextDayInMilli);
+            const funDate = nextDate.getDate();
+            const funMonth = nextDate.getMonth() + 1;
+            const funYear = nextDate.getFullYear();
+            // funFullDate =
+            //   funDate > 9
+            //     ? funYear + '-' + funMonth + '-' + funDate
+            //     : funMonth > 9
+            //     ? funYear + '-' + '0' + funMonth + '-' + funDate
+            //     : funYear + '-' + '0' + funMonth + '-' + '0' + funDate;
+            if (funDate > 9 && funMonth > 9) {
+              funFullDate = funYear + '-' + funMonth + '-' + funDate;
+            } else if (funMonth > 9 && funDate > 9) {
+              funFullDate =
+                funYear + '-' + '0' + funMonth + '-' + '0' + funDate;
+            } else if (funMonth < 10 && funDate < 9) {
+              funFullDate =
+                funYear + '-' + '0' + funMonth + '-' + '0' + funDate;
+            } else if (funDate > 9 && funMonth < 10) {
+              funFullDate = funYear + '-' + '0' + funMonth + '-' + funDate;
+            } else {
+              funFullDate = funYear + '-' + funMonth + '-' + '0' + funDate;
+            }
+            // console.log(funFullDate, 'funFullDate');
+            return funFullDate;
+            // alert(funFullDate);
+          }
+
           console.log('DAy Clicked', dayy);
           console.log(
             markedDates,
@@ -171,6 +206,7 @@ const CalendarComponent = ({route}) => {
           );
 
           // setMarkedDates({});
+
           function ifEmpty() {
             markedDates[dayy] = {
               startingDay: true,
@@ -216,24 +252,33 @@ const CalendarComponent = ({route}) => {
               markedDates.constructor === Object) === true
           ) {
             console.log('True');
+
             markedDates[dayy] = {
               startingDay: true,
               color: '#50cebb',
               textColor: 'white',
             };
-            markedDates[fullDate] = {
+            // getNextDate(1);
+
+            markedDates[getNextDate(1)] = {
               color: '#50cebb',
               textColor: 'white',
             };
-            markedDates[fullDatetwo] = {
+            // getNextDate(2);
+
+            markedDates[getNextDate(2)] = {
               color: '#50cebb',
               textColor: 'white',
             };
-            markedDates[fullDatethree] = {
+            // getNextDate(3);
+
+            markedDates[getNextDate(3)] = {
               color: '#50cebb',
               textColor: 'white',
             };
-            markedDates[fullDatefour] = {
+            // getNextDate(4);
+
+            markedDates[getNextDate(4)] = {
               endingDay: true,
               color: '#50cebb',
               textColor: 'white',
