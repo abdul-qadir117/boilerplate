@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, FlatList, ActivityIndicator} from 'react-native';
+import {View, FlatList, ActivityIndicator, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Text, Screen, Button, Link, Header} from '@components';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -9,15 +9,22 @@ import CardComponent from '../../components/card/card';
 
 const CalendarComponent = ({route}) => {
   //   const {token} = route.params;
-  const [date, setDate] = useState('2021-09-10');
+  const currentDate = new Date().getDate();
+  const currentMonth = new Date().getMonth() + 1;
+  const currentYear = new Date().getFullYear();
+  const currentFullDate = `${currentYear}-${currentMonth}-${currentDate}`;
+  const [date, setDate] = useState(currentFullDate);
   const [interventions, setInterventions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState('');
   const [months, setMonths] = useState();
+  const [markedDates, setMarkedDates] = useState({});
+  // const markedDates = {};
   var date1 = new Date();
   var date2 = date1.toString().split('T')[0];
-  console.log(date2);
+  console.log(date2, '=====', currentFullDate, '===...>');
   useEffect(() => {
+    console.log('MarkedDAt', markedDates, '====>', new Date());
     // console.log('CalendarComponent: ', getToken);
     if (months === undefined || months === null || months === '') {
       if (new Date(date).getMonth() + 1 > 9) {
@@ -27,7 +34,7 @@ const CalendarComponent = ({route}) => {
       }
     }
     getToken();
-    setMonthData(months);
+    //setMonthData(date);
     console.log(new Date(date).getMonth() + 1, 'Mpnth == ? ');
     setLoading(true);
     fetch(
@@ -54,7 +61,7 @@ const CalendarComponent = ({route}) => {
           console.log(loading, '==>loading');
           console.log(data.data.holidays.length, '==>data');
           if (data.data.holidays.length === 0) {
-            alert('There is no holiday this month');
+            Alert.alert('There is no holiday this month');
           }
           setLoading(false);
           setInterventions(data.data.holidays);
@@ -77,9 +84,10 @@ const CalendarComponent = ({route}) => {
     }
   };
 
-  const setMonthData = async m => {
+  const setMonthData = async d => {
     try {
-      await AsyncStorage.setItem('month', m.toString());
+      // await AsyncStorage.setItem('month', m.toString());
+      await AsyncStorage.setItem('day', d);
       console.log('asdasdasda', m);
     } catch (e) {
       // saving error
@@ -100,30 +108,11 @@ const CalendarComponent = ({route}) => {
       <Header leftIconName={'power-off'} title={'Your Calendar'} />
       <CommonHeader title={date} />
       <Calendar
-        markingType={'multi-dot'}
+        // markingType={'multi-dot'}
+        // console.log("hheello");
+        markingType={'period'}
         current={new Date()}
-        markedDates={{
-          '2021-09-16': {selected: true, marked: true, selectedColor: 'blue'},
-          '2021-09-15': {
-            selected: true,
-            marked: true,
-            selectedColor: 'red',
-          },
-          '2021-09-16': {marked: true, dotColor: '#50cebb'},
-          '2021-09-21': {
-            startingDay: true,
-            color: '#1a53ff',
-            textColor: 'white',
-          },
-          '2021-09-22': {color: '#1a53ff', textColor: 'white'},
-          '2021-09-23': {
-            color: '#1a53ff',
-            textColor: 'white',
-            marked: true,
-            dotColor: 'white',
-          },
-          '2021-09-24': {color: '#1a53ff', textColor: 'white'},
-        }}
+        markedDates={markedDates}
         // Handler which gets executed when press arrow icon left. It receive a callback can go back month
         onPressArrowLeft={(subtractMonth, day) => {
           subtractMonth();
@@ -141,7 +130,210 @@ const CalendarComponent = ({route}) => {
           console.log('month changed', typeof currentMonth);
         }}
         onDayPress={day => {
+          // setMarkedDates(null);
+          // if (
+          //   markedDates === undefined ||
+          //   markedDates === null ||
+          //   markedDates === ''
+          // ) {
+          //   console.log('MarkedDAt', markedDates, '====>Truue');
+          // } else {
+          //   console.log('=========>False');
+          // }
+          const dayy = day.dateString;
+
+          //const dd = day.toISOString().split('T')[0];
+          const dayplus = dayy.split('-')[2] * 1 + 1;
+          const dayplustwo = dayy.split('-')[2] * 1 + 2;
+          const dayplusthree = dayy.split('-')[2] * 1 + 3;
+          const dayplusfour = dayy.split('-')[2] * 1 + 4;
+          const monthplus = dayy.split('-')[1];
+          const yearplus = dayy.split('-')[0];
+          const fullDate = yearplus + '-' + monthplus + '-' + dayplus;
+          const fullDatetwo = yearplus + '-' + monthplus + '-' + dayplustwo;
+          const fullDatethree = yearplus + '-' + monthplus + '-' + dayplusthree;
+          const fullDatefour = yearplus + '-' + monthplus + '-' + dayplusfour;
+          var funFullDate;
+          // alert(fullDate);
+          // if (!markedDates) {
+
+          // }
+          // if (!markedDates[dayy]) {
+          // markedDates[dayy] = {};
+          // setMarkedDates();
+          // markedDates.constructor;
+          // getNextDate();
+          function getNextDate(dayNum) {
+            // const dayNum = 2;
+            const currentDayInMilli = new Date(dayy).getTime();
+            const oneDay = 1000 * 60 * 60 * 24;
+            const nextDayInMilli = currentDayInMilli + oneDay * dayNum;
+            const nextDate = new Date(nextDayInMilli);
+            const funDate = nextDate.getDate();
+            const funMonth = nextDate.getMonth() + 1;
+            const funYear = nextDate.getFullYear();
+            // funFullDate =
+            //   funDate > 9
+            //     ? funYear + '-' + funMonth + '-' + funDate
+            //     : funMonth > 9
+            //     ? funYear + '-' + '0' + funMonth + '-' + funDate
+            //     : funYear + '-' + '0' + funMonth + '-' + '0' + funDate;
+            if (funDate > 9 && funMonth > 9) {
+              funFullDate = funYear + '-' + funMonth + '-' + funDate;
+            } else if (funMonth > 9 && funDate > 9) {
+              funFullDate =
+                funYear + '-' + '0' + funMonth + '-' + '0' + funDate;
+            } else if (funMonth < 10 && funDate < 9) {
+              funFullDate =
+                funYear + '-' + '0' + funMonth + '-' + '0' + funDate;
+            } else if (funDate > 9 && funMonth < 10) {
+              funFullDate = funYear + '-' + '0' + funMonth + '-' + funDate;
+            } else {
+              funFullDate = funYear + '-' + funMonth + '-' + '0' + funDate;
+            }
+            // console.log(funFullDate, 'funFullDate');
+            return funFullDate;
+            // alert(funFullDate);
+          }
+
+          console.log('DAy Clicked', dayy);
+          console.log(
+            markedDates,
+            '---',
+            Object.keys(markedDates).length === 0 &&
+              markedDates.constructor === Object,
+            '==>markedDates',
+          );
+
+          // setMarkedDates({});
+
+          function ifEmpty() {
+            markedDates[dayy] = {
+              startingDay: true,
+              color: '#50cebb',
+              textColor: 'white',
+            };
+            markedDates[fullDate] = {
+              color: '#50cebb',
+              textColor: 'white',
+            };
+            markedDates[fullDatetwo] = {
+              color: '#50cebb',
+              textColor: 'white',
+            };
+            markedDates[fullDatethree] = {
+              color: '#50cebb',
+              textColor: 'white',
+            };
+            markedDates[fullDatefour] = {
+              endingDay: true,
+              color: '#50cebb',
+              textColor: 'white',
+            };
+            console.log('MarkedDAt', markedDates, '====>IfEEmptyy');
+          }
+          function ifNotEmpty() {
+            setMarkedDates({});
+            if (
+              (Object.keys(markedDates).length === 0 &&
+                markedDates.constructor === Object) === true
+            ) {
+              console.log('Empty === True');
+            } else {
+              console.log('Empty === False');
+            }
+            console.log('MarkedDAt', markedDates, '====>IfNootEmpty');
+            ifEmpty();
+          }
+          if (
+            // markedDates === undefined ||
+            // markedDates === null ||
+            (Object.keys(markedDates).length === 0 &&
+              markedDates.constructor === Object) === true
+          ) {
+            console.log('True');
+
+            markedDates[dayy] = {
+              startingDay: true,
+              color: '#50cebb',
+              textColor: 'white',
+            };
+            // getNextDate(1);
+
+            markedDates[getNextDate(1)] = {
+              color: '#50cebb',
+              textColor: 'white',
+            };
+            // getNextDate(2);
+
+            markedDates[getNextDate(2)] = {
+              color: '#50cebb',
+              textColor: 'white',
+            };
+            // getNextDate(3);
+
+            markedDates[getNextDate(3)] = {
+              color: '#50cebb',
+              textColor: 'white',
+            };
+            // getNextDate(4);
+
+            markedDates[getNextDate(4)] = {
+              endingDay: true,
+              color: '#50cebb',
+              textColor: 'white',
+            };
+            console.log(markedDates);
+          } else {
+            console.log('False');
+            console.log(markedDates);
+            ifNotEmpty();
+            // setMarkedDates({});
+            // new markedDates();
+            // markedDates[dayy] = {
+            //   startingDay: true,
+            //   color: '#50cebb',
+            //   textColor: 'white',
+            // };
+            // markedDates[fullDate] = {
+            //   color: '#50cebb',
+            //   textColor: 'white',
+            // };
+            // markedDates[fullDatetwo] = {
+            //   color: '#50cebb',
+            //   textColor: 'white',
+            // };
+            // markedDates[fullDatethree] = {
+            //   color: '#50cebb',
+            //   textColor: 'white',
+            // };
+            // markedDates[fullDatefour] = {
+            //   endingDay: true,
+            //   color: '#50cebb',
+            //   textColor: 'white',
+            // };
+          }
+          // setMarkedDates(markedDates);
+          // markedDates[dayy].push({
+          //   selected: true,
+          //   marked: true,
+          //   selectedColor: 'blue',
+          // });
+          // markedDates[dayy].push({
+          //   selected: true,
+          //   marked: true,
+          //   selectedColor: 'blue',
+          // });
+          // }
+          // console.log(markedDates);
+          // if (day.day > 9) {
+          //   setDate(day.day);
+          // } else {
+          //   setDate(0 + day.day);
+          // }
           setDate(day.dateString);
+
+          setMonthData(dayy);
         }}
       />
       <View

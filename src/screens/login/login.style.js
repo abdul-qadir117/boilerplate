@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    height: '50%',
+    height: '40%',
     width: '100%',
   },
   headerContainerImage: {
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     },
   },
   formContainer: {
-    height: '50%',
+    height: '35%',
     alignItems: 'center',
   },
   inputField: {

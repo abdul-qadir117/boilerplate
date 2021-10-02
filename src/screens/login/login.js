@@ -81,7 +81,7 @@ const Login = ({navigation}) => {
 
   return (
     <Screen>
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         {/* <CalendarComponent /> */}
         <View style={styles.headerContainer}>
           <ImageBackground
@@ -124,7 +124,7 @@ const Login = ({navigation}) => {
             </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </Screen>
   );
 };
