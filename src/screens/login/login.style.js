@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   formContainer: {
     height: '35%',
     alignItems: 'center',
+    // marginTop: '19%',
   },
   inputField: {
     width: '90%',
@@ -65,6 +66,28 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     textDecorationLine: 'underline',
     marginVertical: 20,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    // alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    // backgroundColor: 'rgba(52, 52, 52, 0.8)',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 4,
+    // elevation: 5,
   },
 });
 

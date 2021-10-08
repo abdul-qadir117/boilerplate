@@ -7,7 +7,8 @@ import styles from './common-header.style';
 const CommonHeader = ({title}) => {
   return (
     <View style={styles.headerContainer}>
-      <Icon name="left" size={25} color="white" />
+      {/* <Icon name="left" size={25} color="white" /> */}
+      <View></View>
       <Text style={styles.headerText}>{title}</Text>
       <View></View>
       {/* <Icon name="pluscircleo" size={35} color="white" /> */}

@@ -12,7 +12,7 @@ const CardComponent = ({text, name, time, date}) => {
         <Text style={{...styles.headerText, fontWeight: '700'}}> {name}</Text>
       </View>
       <View style={styles.dateTimeContainer}>
-        <Text style={styles.dateTimeText}>{time}</Text>
+        {/* <Text style={styles.dateTimeText}>{time}</Text> */}
         <Text style={styles.dateTimeText}>{date}</Text>
       </View>
     </View>

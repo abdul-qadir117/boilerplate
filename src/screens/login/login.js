@@ -8,6 +8,9 @@ import {
   ImageBackground,
   StatusBar,
   ScrollView,
+  KeyboardAvoidingView,
+  Modal,
+  ActivityIndicator,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Text, Screen, Button, Link} from '@components';
@@ -21,6 +24,8 @@ const Login = ({navigation}) => {
   const [imageContainerHeight, setImageContainerHeight] = useState(0);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const loadData = () => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -36,7 +41,7 @@ const Login = ({navigation}) => {
       const formData = new FormData();
       formData.append('email', email);
       formData.append('password', password);
-
+      setModalVisible(true);
       fetch('https://tieredtracker.com/api/login', {
         method: 'POST',
         headers: {
@@ -54,26 +59,30 @@ const Login = ({navigation}) => {
                 data.token,
                 data.data.user.givenname,
                 data.data.user.familyname,
+                data.data.school.s_join_inter_max_days,
               );
-
+              setModalVisible(false);
               navigation.navigate('WelcomeScreen', {
                 firstName: data.data.user.givenname,
                 lastName: data.data.user.familyname,
               });
             } else {
+              setModalVisible(false);
               alert('Please login to web portal');
             }
           } else {
+            setModalVisible(false);
             alert(data.message);
           }
         })
         .catch(error => console.log('Something went wrong', error));
     }
   };
-  const setToken = async (token, firstname, lastname) => {
+  const setToken = async (token, firstname, lastname, interventionDay) => {
     try {
       await AsyncStorage.setItem('token', token);
-      console.log('asdasdasda', token);
+      await AsyncStorage.setItem('interventionDay', interventionDay);
+      console.log('asdasdasda', token, '====>', interventionDay);
     } catch (e) {
       // saving error
     }
@@ -125,6 +134,23 @@ const Login = ({navigation}) => {
           </View>
         </View>
       </ScrollView>
+      {/* <View style={styles.centeredView}> */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <TouchableOpacity>
+              <ActivityIndicator size="large" color="#0000ff" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      {/* </View> */}
     </Screen>
   );
 };

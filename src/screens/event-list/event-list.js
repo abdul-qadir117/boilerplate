@@ -31,22 +31,27 @@ const EventList = props => {
     'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjlkYWQwZDg3YzdhMGYxYjc1NTU4OTk3M2ZkMjg1MzhjZDk4MzAwZGNhMGI2MzViYzAwYTAwNzM0MjhhMzY1NTYwMWJlMDdmOWNkMjY4ZWJkIn0.eyJhdWQiOiIxIiwianRpIjoiOWRhZDBkODdjN2EwZjFiNzU1NTg5OTczZmQyODUzOGNkOTgzMDBkY2EwYjYzNWJjMDBhMDA3MzQyOGEzNjU1NjAxYmUwN2Y5Y2QyNjhlYmQiLCJpYXQiOjE2MzE1NzI5ODEsIm5iZiI6MTYzMTU3Mjk4MSwiZXhwIjoxNjYzMTA4OTgxLCJzdWIiOiIyNTA0Iiwic2NvcGVzIjpbXX0.Kbph0X1MKW-gi8xnelLoV_H4usjWpvJ7HTnHmZXqRw0tzHK2nzm5tu8vbLMVqytmjqOm0sZqm4HUnC6CL6lCHVYRah-FwvSYQxYLiW-yUHhB4q4NiwFh0XxNUHumFlz6WsSY2nZ1EDOp_M1HQqwNSj6RCnrRBKGNvmv2lK3lmhg61RUQX2o3RB0KxG70tBZIcMi2tiwVkQBxXDBNV8_doMc3ZboM7s6Cl24vABMXJUdQEpdb8TDnqlQ0BNdSXPHIuKZfcfSbklYVq5-tyGLzq7k04GzGwOhkhJnXGGIx57LX7nZ3fOeQdMalZF8nWvCu4F5WRPQqsSGYXbjSYfZ0EfHOKYAQHko7aOMBnuiKzAP7ZCsxJfeRZr1vWLyyfK9aWajstmhfOIhbtURoGcz-wxWYcS8avAwoYN8H2RmdjSUW6fBS1oR07VsqZ7_8LCSt1OY7IWNTZCg_c_hpOkQvMp0lN2ScjcamrkWOgsnAABNTkFlZYtKUfZ1cEDipF2uS1zBsw0Quxk9ZGcLNt_8ifYvA_xZ4LLFLpnReB1yvotmVrrmC_dKGpqc9TDDu-UOdW9SCUC-ZpdYXhHn2F1Nu0sCS3sJKQE2YanJmpC0Qzn4UKwZUH_m6FnVmtvlDzMFzaELZIl-BqyFAApUNKTNcuivZjFQgI5Pg4oliKtYpqnQ',
   );
   const [modalVisible, setModalVisible] = useState(false);
+  const [joinmodalVisible, setJoinModalVisible] = useState(false);
   const [available, setAvailable] = useState(1);
   const [teacherAssigned, setTeacherAssigned] = useState(1);
   const [studentJoined, setStudentJoined] = useState(1);
   const [close_full, setCloseFull] = useState(1);
   const [month, setMonth] = useState(1);
   const [day, setDay] = useState(1);
+  const [interventionbject, setInterventionbject] = useState({});
+  var inter_max_ddays = 0;
   var prevDate = '';
   React.useEffect(() => {
-    console.log('focus');
+    console.log('focus1');
     getMonthh();
+    getInterventions();
 
     const unsubscribe = props.navigation.addListener('focus', () => {
       // The screen is focused
       // Call any action
-      console.log('focus');
+      console.log('focus2');
       getMonthh();
+      getInterventions();
     });
 
     //Return the function to unsubscribe from the event so it gets removed on unmount
@@ -63,13 +68,63 @@ const EventList = props => {
       startDate.dateString,
       endDate,
       '&end_date=' +
-        `2021-${month}-${day * 1 + 5}` +
+        `2021-${month}-${day * 1 + 7}` +
         '&start_date=' +
         `2021-${month}-${day}`,
     );
     getToken();
 
     setLoading(true);
+    getInterventions();
+    // fetch(
+    //   'https://tieredtracker.com/api/all-interventions?joined=' +
+    //     studentJoined +
+    //     '&assigned=' +
+    //     teacherAssigned +
+    //     '&close_full=' +
+    //     close_full +
+    //     '&available=' +
+    //     available +
+    //     '&end_date=' +
+    //     `2021-${month}-${day * 1 + 5}` +
+    //     '&start_date=' +
+    //     `2021-${month}-${day}`,
+    //   {
+    //     headers: {
+    //       Accept: 'application/json',
+    //       'Content-Type': 'multipart/form-data',
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   },
+    // )
+    //   .then(async response => {
+    //     let data = await response.json();
+    //     console.log(data.data, token, '==>');
+    //     if (data.status === true) {
+    //       console.log(loading, '==>loading');
+    //       setLoading(false);
+    //       //setInterventions(data.data.interventions);
+
+    //       var interventionData = data.data.interventions.sort(function (a, b) {
+    //         return a.start.split('-')[2] - b.start.split('-')[2];
+    //       });
+    //       setInterventions(interventionData);
+    //     }
+    //   })
+    //   .catch(error => console.log('Something went wrong', error));
+  }, [
+    startDate,
+    endDate,
+    available,
+    teacherAssigned,
+    studentJoined,
+    close_full,
+    month,
+    day,
+  ]);
+
+  const getInterventions = () => {
+    console.log(inter_max_ddays, 'inter_max_ddays');
     fetch(
       'https://tieredtracker.com/api/all-interventions?joined=' +
         studentJoined +
@@ -80,7 +135,7 @@ const EventList = props => {
         '&available=' +
         available +
         '&end_date=' +
-        `2021-${month}-${day * 1 + 5}` +
+        `2021-${month}-${day * 1 + 7}` +
         '&start_date=' +
         `2021-${month}-${day}`,
       {
@@ -93,7 +148,8 @@ const EventList = props => {
     )
       .then(async response => {
         let data = await response.json();
-        console.log(data, token, '==>');
+        // console.log(data.data, token, '==>');
+        console.log(inter_max_ddays, 'data');
         if (data.status === true) {
           console.log(loading, '==>loading');
           setLoading(false);
@@ -106,23 +162,17 @@ const EventList = props => {
         }
       })
       .catch(error => console.log('Something went wrong', error));
-  }, [
-    startDate,
-    endDate,
-    available,
-    teacherAssigned,
-    studentJoined,
-    close_full,
-    month,
-    day,
-  ]);
+  };
 
   const getToken = async () => {
     try {
       const value = await AsyncStorage.getItem('token');
+      const interventionDay = await AsyncStorage.getItem('interventionDay');
+      console.log(interventionDay, 'interventionDay');
       console.log('token oo', value);
       if (value !== null) {
         // value previously stored
+        inter_max_ddays = interventionDay;
         setToken(value);
         console.log('token: in Event ', value);
       }
@@ -142,7 +192,7 @@ const EventList = props => {
         // value previously stored
         setMonth(monthsLocal);
         setDay(daysLocal);
-        console.log('token: ', value);
+        console.log('token: ', value1);
       }
     } catch (e) {
       // error reading value
@@ -196,6 +246,7 @@ const EventList = props => {
             height: '100%',
             justifyContent: 'space-between',
             flexDirection: 'row',
+            alignItems: 'center',
           }}>
           <View
             style={{
@@ -213,7 +264,8 @@ const EventList = props => {
                 {/* {prevDate} */}
               </Text>
               <Text style={{fontSize: 8, fontWeight: '700', color: 'gray'}}>
-                MON
+                {/* MON */}
+                {new Date(item.start).toString().split(' ')[0]}
               </Text>
             </>
             {/* ))} */}
@@ -246,21 +298,33 @@ const EventList = props => {
             alignItems: 'center',
           }}>
           <TouchableOpacity
+            // onPress={() => {
+            //   join_intervention(item.id);
+            // }}
             onPress={() => {
-              join_intervention(item.id);
+              setInterventionbject(item);
+              setJoinModalVisible(true);
             }}
             style={{
               borderWidth: 1,
-              width: '80%',
-              height: 40,
+              width: '90%',
+              height: 90,
               backgroundColor: item.backgroundColor,
               alignItems: 'center',
               justifyContent: 'center',
               borderColor: item.backgroundColor,
-              marginTop: 50,
+              marginTop: 20,
+              paddingTop: 10,
+              paddingBottom: 10,
             }}>
-            <Text style={{fontSize: 18, fontWeight: '700', color: 'white'}}>
-              {item.teacher}
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: '700',
+                color: 'white',
+                textAlign: 'center',
+              }}>
+              {item.title}
             </Text>
           </TouchableOpacity>
         </View>
@@ -412,12 +476,150 @@ const EventList = props => {
                 }}>
                 <Text style={{fontWeight: '600'}}>Full/Close</Text>
               </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  borderWidth: 1,
+                  height: 30,
+                  width: '100%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginTop: 10,
+                }}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                  setAvailable(1);
+                  setCloseFull(1);
+                  setTeacherAssigned(1);
+                  setStudentJoined(1);
+                }}>
+                <Text style={{fontWeight: '600'}}>All</Text>
+              </TouchableOpacity>
               {/* <Text style={styles.modalText}>Hello World!</Text>
               <Pressable
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}>
                 <Text style={styles.textStyle}>Hide Modal</Text>
               </Pressable> */}
+            </View>
+          </View>
+        </Modal>
+      </View>
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={joinmodalVisible}
+          onRequestClose={() => {
+            setModalVisible(!joinmodalVisible);
+          }}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text
+                style={{
+                  fontWeight: '700',
+                  textAlign: 'center',
+                  fontSize: 16,
+                  color: 'gray',
+                }}>
+                {interventionbject.title}
+              </Text>
+              <View
+                style={{
+                  borderWidth: 1,
+                  height: 0.1,
+                  width: '100%',
+                  marginTop: 10,
+                }}
+              />
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  marginTop: 40,
+                }}>
+                <Text style={{fontWeight: '600', width: '70%'}}>
+                  Teacher Name :
+                </Text>
+                <Text style={{fontWeight: '500', width: '30%'}}>
+                  {interventionbject.teacher}
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  marginTop: 10,
+                }}>
+                <Text style={{fontWeight: '600', width: '70%'}}>
+                  Intervention Status :
+                </Text>
+                <Text style={{fontWeight: '500', width: '30%'}}>
+                  {interventionbject.interventionStatus}
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  marginTop: 10,
+                }}>
+                <Text style={{fontWeight: '600', width: '70%'}}>
+                  Intervention Type :
+                </Text>
+                <Text style={{fontWeight: '500', width: '30%'}}>
+                  {interventionbject.interventionType}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  marginTop: 10,
+                }}>
+                <Text style={{fontWeight: '600', width: '70%'}}>Limit :</Text>
+                <Text style={{fontWeight: '500', width: '30%'}}>
+                  {interventionbject.limit}
+                </Text>
+              </View>
+              {interventionbject.interventionStatus === 'full' ? (
+                <TouchableOpacity
+                  style={{
+                    borderWidth: 1,
+                    height: 30,
+                    width: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginTop: 40,
+                  }}
+                  onPress={() => {
+                    setJoinModalVisible(!joinmodalVisible);
+
+                    join_intervention(interventionbject.id);
+                  }}>
+                  <Text style={{fontWeight: '600'}}>Join Intervention</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => {
+                    setJoinModalVisible(!joinmodalVisible);
+                  }}>
+                  <Text
+                    style={{
+                      color: 'red',
+                      fontSize: 10,
+                      marginTop: 30,
+                      fontWeight: '700',
+                    }}>
+                    You cannot join the intervention because it is full
+                  </Text>
+                </TouchableOpacity>
+              )}
             </View>
           </View>
         </Modal>

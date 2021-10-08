@@ -4,11 +4,11 @@ const {width: screenWidth} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: 50,
+    height: 70,
     width: '90%',
     backgroundColor: '#f2f2f2',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    // flexDirection: 'row',
+    justifyContent: 'space-around',
     alignItems: 'center',
     paddingHorizontal: 10,
     alignSelf: 'center',
