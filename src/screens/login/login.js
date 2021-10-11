@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
   Modal,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Text, Screen, Button, Link} from '@components';
@@ -68,11 +69,11 @@ const Login = ({navigation}) => {
               });
             } else {
               setModalVisible(false);
-              alert('Please login to web portal');
+              Alert.alert('Please login to web portal');
             }
           } else {
             setModalVisible(false);
-            alert(data.message);
+            Alert.alert(data.message);
           }
         })
         .catch(error => console.log('Something went wrong', error));

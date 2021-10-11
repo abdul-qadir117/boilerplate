@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
   leftIcon: {
     // marginRight: 10,
     // alignItems: 'flex-start',
+    fontWeight: '600',
   },
   rightIcon: {
     marginLeft: 10,

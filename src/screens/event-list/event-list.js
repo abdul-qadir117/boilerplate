@@ -20,15 +20,16 @@ import data from './timeline.data';
 import styles from './event-list.style';
 import CalendarPopup from '../../components/modals/calendar-popup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const EventList = props => {
   const [selectedValue, setSelectedValue] = useState('java');
   const [interventions, setInterventions] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [startDate, setStartDate] = useState('2021-09-1');
-  const [endDate, setEndDate] = useState('2021-09-30');
+  // const [startDate, setStartDate] = useState('2021-09-1');
+  // const [endDate, setEndDate] = useState('2021-09-30');
   const [token, setToken] = useState(
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjlkYWQwZDg3YzdhMGYxYjc1NTU4OTk3M2ZkMjg1MzhjZDk4MzAwZGNhMGI2MzViYzAwYTAwNzM0MjhhMzY1NTYwMWJlMDdmOWNkMjY4ZWJkIn0.eyJhdWQiOiIxIiwianRpIjoiOWRhZDBkODdjN2EwZjFiNzU1NTg5OTczZmQyODUzOGNkOTgzMDBkY2EwYjYzNWJjMDBhMDA3MzQyOGEzNjU1NjAxYmUwN2Y5Y2QyNjhlYmQiLCJpYXQiOjE2MzE1NzI5ODEsIm5iZiI6MTYzMTU3Mjk4MSwiZXhwIjoxNjYzMTA4OTgxLCJzdWIiOiIyNTA0Iiwic2NvcGVzIjpbXX0.Kbph0X1MKW-gi8xnelLoV_H4usjWpvJ7HTnHmZXqRw0tzHK2nzm5tu8vbLMVqytmjqOm0sZqm4HUnC6CL6lCHVYRah-FwvSYQxYLiW-yUHhB4q4NiwFh0XxNUHumFlz6WsSY2nZ1EDOp_M1HQqwNSj6RCnrRBKGNvmv2lK3lmhg61RUQX2o3RB0KxG70tBZIcMi2tiwVkQBxXDBNV8_doMc3ZboM7s6Cl24vABMXJUdQEpdb8TDnqlQ0BNdSXPHIuKZfcfSbklYVq5-tyGLzq7k04GzGwOhkhJnXGGIx57LX7nZ3fOeQdMalZF8nWvCu4F5WRPQqsSGYXbjSYfZ0EfHOKYAQHko7aOMBnuiKzAP7ZCsxJfeRZr1vWLyyfK9aWajstmhfOIhbtURoGcz-wxWYcS8avAwoYN8H2RmdjSUW6fBS1oR07VsqZ7_8LCSt1OY7IWNTZCg_c_hpOkQvMp0lN2ScjcamrkWOgsnAABNTkFlZYtKUfZ1cEDipF2uS1zBsw0Quxk9ZGcLNt_8ifYvA_xZ4LLFLpnReB1yvotmVrrmC_dKGpqc9TDDu-UOdW9SCUC-ZpdYXhHn2F1Nu0sCS3sJKQE2YanJmpC0Qzn4UKwZUH_m6FnVmtvlDzMFzaELZIl-BqyFAApUNKTNcuivZjFQgI5Pg4oliKtYpqnQ',
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImJlNWVkNGE5Y2VlMjZkYTU0OWU3NDg1YTQ4MmRiNjZkMDk4MjIzYmY2YzU2YzlmM2VhNjFkNjk4MzYwOGRjN2QyNzdiZmM0ZTMyZDdmNjRmIn0.eyJhdWQiOiIxIiwianRpIjoiYmU1ZWQ0YTljZWUyNmRhNTQ5ZTc0ODVhNDgyZGI2NmQwOTgyMjNiZjZjNTZjOWYzZWE2MWQ2OTgzNjA4ZGM3ZDI3N2JmYzRlMzJkN2Y2NGYiLCJpYXQiOjE2MzM3OTkzNzAsIm5iZiI6MTYzMzc5OTM3MCwiZXhwIjoxNjY1MzM1MzcwLCJzdWIiOiIxODQ0MyIsInNjb3BlcyI6W119.LeIQoPo3b73SsoSDgNU06gbeWq4XFRGGqsUGqoL6xtV6Dj5vw3iUz1XaO-3Ojs8Rk5a_-NvhhO6g-BUWau56w5T8Ec765JhSxXnh-q-mfc3Z0EEhGu7sxpO1CSFwj0gRq8CWk_b1c5RyQxIISwRwhQ6quVQw7DHtPvl0qACQZk1FPt6lmBPllVt9Oq3A1Qos8VdWdDDEXqDMQcFGbP_wXtuKG9AK2ZpR1CB2abKAT-PbDWqwMPLZlcUOvk5TOroIuW7UYUy21hy7Vfiu3vjSK70l7rK20kwuJ2uULru-V4CQky0UaNR0oCObzgJB4R2aOF8oqTmkjD5b85ANHNRiG8zpoooAM39yKvOoI9S7_14cu_l-R9qa_ntV8Hjydn09OxLVvHOQSx_MVxt---WGDVF0LLJ7gH8ahGmoIKObjuV_284H7DMPcrlP4RiASd_M8kOR62MqsBAU_k1mJcCEpz6ecERXRxpywJNKN8w5hifXS4U9QRTMk5gC9IbN8GOIKAeuKGDDAYHc1KY8lrlYR_azIR6ojPlYSB1hpk4xynh647ih_oqWz7RlXtiYGG8zVZLESR77f66kR-WGLGsbjY0tOVvtsPIn9mkTEwU7wpMCIRFI7jdbpUxxtFAWQFvP78jI8VqPtxWGuwnt4r0WWZY0HUlCbWf9UjsxObD8KsM',
   );
   const [modalVisible, setModalVisible] = useState(false);
   const [joinmodalVisible, setJoinModalVisible] = useState(false);
@@ -36,8 +37,10 @@ const EventList = props => {
   const [teacherAssigned, setTeacherAssigned] = useState(1);
   const [studentJoined, setStudentJoined] = useState(1);
   const [close_full, setCloseFull] = useState(1);
-  const [month, setMonth] = useState(1);
-  const [day, setDay] = useState(1);
+  // const [month, setMonth] = useState(1);
+  // const [day, setDay] = useState(1);
+  var month = 0;
+  var day = 0;
   const [interventionbject, setInterventionbject] = useState({});
   var inter_max_ddays = 0;
   var prevDate = '';
@@ -52,6 +55,7 @@ const EventList = props => {
       console.log('focus2');
       getMonthh();
       getInterventions();
+      console.log('focus3', month, day);
     });
 
     //Return the function to unsubscribe from the event so it gets removed on unmount
@@ -63,19 +67,19 @@ const EventList = props => {
   });
   useEffect(() => {
     // console.log('CalendarComponent: ', getToken);
-    console.log(
-      'start-date ==>',
-      startDate.dateString,
-      endDate,
-      '&end_date=' +
-        `2021-${month}-${day * 1 + 7}` +
-        '&start_date=' +
-        `2021-${month}-${day}`,
-    );
+    // console.log(
+    //   'start-date ==>',
+    //   startDate.dateString,
+    //   endDate,
+    //   '&end_date=' +
+    //     `2021-${month}-${day * 1 + 7}` +
+    //     '&start_date=' +
+    //     `2021-${month}-${day}`,
+    // );
     getToken();
 
     setLoading(true);
-    getInterventions();
+    // getInterventions();
     // fetch(
     //   'https://tieredtracker.com/api/all-interventions?joined=' +
     //     studentJoined +
@@ -113,8 +117,8 @@ const EventList = props => {
     //   })
     //   .catch(error => console.log('Something went wrong', error));
   }, [
-    startDate,
-    endDate,
+    // startDate,
+    // endDate,
     available,
     teacherAssigned,
     studentJoined,
@@ -124,7 +128,7 @@ const EventList = props => {
   ]);
 
   const getInterventions = () => {
-    console.log(inter_max_ddays, 'inter_max_ddays');
+    console.log(inter_max_ddays, 'inter_max_ddays', month, 'month');
     fetch(
       'https://tieredtracker.com/api/all-interventions?joined=' +
         studentJoined +
@@ -174,6 +178,8 @@ const EventList = props => {
         // value previously stored
         inter_max_ddays = interventionDay;
         setToken(value);
+        getInterventions();
+
         console.log('token: in Event ', value);
       }
     } catch (e) {
@@ -190,9 +196,18 @@ const EventList = props => {
       const daysLocal = value1.split('-')[2];
       if (value1 !== null) {
         // value previously stored
-        setMonth(monthsLocal);
-        setDay(daysLocal);
-        console.log('token: ', value1);
+        // setMonth(monthsLocal);
+        // setDay(daysLocal);
+        month = monthsLocal;
+        day = daysLocal;
+        console.log(
+          'token: ',
+          monthsLocal,
+          'monthlocal',
+          daysLocal,
+          'dayslocal',
+          value1,
+        );
       }
     } catch (e) {
       // error reading value
@@ -304,6 +319,7 @@ const EventList = props => {
             onPress={() => {
               setInterventionbject(item);
               setJoinModalVisible(true);
+              console.log(item, 'item');
             }}
             style={{
               borderWidth: 1,
@@ -346,10 +362,38 @@ const EventList = props => {
             justifyContent: 'center',
           }}>
           <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              width: 120,
+              alignItems: 'center',
+            }}
             onPress={() => {
               setModalVisible(true);
             }}>
-            <Text style={styles.leftIcon}>Sort by:</Text>
+            <View
+              style={{
+                // borderWidth: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+
+                width: 80,
+                height: '100%',
+              }}>
+              <Text style={styles.leftIcon}>Sort by :</Text>
+            </View>
+            <View
+              style={{
+                // borderWidth: 1,
+                alignItems: 'center',
+                // justifyContent: 'center',
+
+                width: 30,
+                height: '100%',
+                paddingBottom: 5,
+              }}>
+              <FontAwesome name="sort-down" size={20} color="gray" />
+            </View>
           </TouchableOpacity>
           {/* 
           <Picker
@@ -405,6 +449,16 @@ const EventList = props => {
           }}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
+              <TouchableOpacity
+                style={{
+                  // borderWidth: 1,
+                  width: '100%',
+                  marginBottom: 30,
+                  alignItems: 'flex-end',
+                }}
+                onPress={() => setModalVisible(!modalVisible)}>
+                <FontAwesome name="close" size={30} color="black" />
+              </TouchableOpacity>
               <TouchableOpacity
                 style={{
                   borderWidth: 1,
@@ -510,10 +564,20 @@ const EventList = props => {
           transparent={true}
           visible={joinmodalVisible}
           onRequestClose={() => {
-            setModalVisible(!joinmodalVisible);
+            setJoinModalVisible(!joinmodalVisible);
           }}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
+              <TouchableOpacity
+                style={{
+                  // borderWidth: 1,
+                  width: '100%',
+                  marginBottom: 30,
+                  alignItems: 'flex-end',
+                }}
+                onPress={() => setJoinModalVisible(!joinmodalVisible)}>
+                <FontAwesome name="close" size={30} color="black" />
+              </TouchableOpacity>
               <Text
                 style={{
                   fontWeight: '700',
@@ -554,10 +618,10 @@ const EventList = props => {
                   marginTop: 10,
                 }}>
                 <Text style={{fontWeight: '600', width: '70%'}}>
-                  Intervention Status :
+                  Room Number :
                 </Text>
                 <Text style={{fontWeight: '500', width: '30%'}}>
-                  {interventionbject.interventionStatus}
+                  {interventionbject.room}
                 </Text>
               </View>
 
@@ -569,10 +633,10 @@ const EventList = props => {
                   marginTop: 10,
                 }}>
                 <Text style={{fontWeight: '600', width: '70%'}}>
-                  Intervention Type :
+                  Class Limit :
                 </Text>
                 <Text style={{fontWeight: '500', width: '30%'}}>
-                  {interventionbject.interventionType}
+                  {interventionbject.limit}
                 </Text>
               </View>
               <View
@@ -582,12 +646,40 @@ const EventList = props => {
                   width: '100%',
                   marginTop: 10,
                 }}>
-                <Text style={{fontWeight: '600', width: '70%'}}>Limit :</Text>
+                <Text style={{fontWeight: '600', width: '70%'}}>
+                  Remaining Seats :
+                </Text>
                 <Text style={{fontWeight: '500', width: '30%'}}>
-                  {interventionbject.limit}
+                  {interventionbject.remaining}
                 </Text>
               </View>
-              {interventionbject.interventionStatus === 'full' ? (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  marginTop: 10,
+                }}>
+                <Text style={{fontWeight: '600', width: '70%'}}>
+                  Repeat Class :
+                </Text>
+                <Text style={{fontWeight: '500', width: '30%'}}>
+                  {interventionbject.repeat}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  marginTop: 10,
+                }}>
+                <Text style={{fontWeight: '600', width: '70%'}}>Detail :</Text>
+                <Text style={{fontWeight: '500', width: '30%'}}>
+                  {interventionbject.detail}
+                </Text>
+              </View>
+              {interventionbject.interventionStatus !== 'full' ? (
                 <TouchableOpacity
                   style={{
                     borderWidth: 1,

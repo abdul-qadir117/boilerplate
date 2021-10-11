@@ -28,13 +28,31 @@ const CalendarComponent = ({route}) => {
   const [months, setMonths] = useState();
   const [markedDates, setMarkedDates] = useState({});
   const [maxInterventions, setMaxInterventions] = useState(0);
+  const monthsArray = [
+    'JANUARY',
+    'FEBRUARY',
+    'MARCH',
+    'APRIL',
+    'MAY',
+    'JUNE',
+    'JULY',
+    'AUGUST',
+    'SEPTEMBER',
+    'OCTOBER',
+    'NVEMBER',
+    'DECEMBER',
+  ];
+
   var tokkenValue = '';
   // const markedDates = {};
   var date1 = new Date();
   var date2 = date1.toString().split('T')[0];
   var date3;
   var monthname = date2.split(' ')[1];
-  const [monthNameHook, setMonthNameHook] = useState(monthname);
+
+  const [monthNameHook, setMonthNameHook] = useState(
+    monthsArray[date1.getMonth()],
+  );
   console.log(date2, '=====', monthname, currentFullDate, '===...>');
   useEffect(() => {
     // console.log('MarkedDAt', markedDates, '====>', new Date());
@@ -111,7 +129,8 @@ const CalendarComponent = ({route}) => {
         let data = await response.json();
         // console.log(data, 'GGet Holydays APi', months, '===>', token);
         if (data.status === true) {
-          console.log(loading, '==>loading');
+          // console.log(loading, '==>loading');
+          console.log(data.data.holidays, 'data======....');
           console.log(data.data.holidays.length, '==>data');
           if (data.data.holidays.length === 0) {
             Alert.alert('There is no holiday this month');
@@ -187,7 +206,7 @@ const CalendarComponent = ({route}) => {
 
         //   return funFullDate;
         // }
-        setMonthData(getNextDate(0));
+        // setMonthData(getNextDate(0));
         markedDates[getNextDate(0)] = {
           startingDay: true,
           color: '#50cebb',
@@ -233,7 +252,7 @@ const CalendarComponent = ({route}) => {
   return (
     <Screen style={{marginTop: 50}}>
       <Header leftIconName={'power-off'} title={'Your Calendar'} />
-      <CommonHeader title={date} />
+      {/* <CommonHeader title={date} /> */}
       <Calendar
         // markingType={'multi-dot'}
         // console.log("hheello");
@@ -242,30 +261,33 @@ const CalendarComponent = ({route}) => {
         markedDates={markedDates}
         // Handler which gets executed when press arrow icon left. It receive a callback can go back month
         onPressArrowLeft={(subtractMonth, day) => {
-          var dateLeeft = day.toString().split('T')[0];
-          monthname = dateLeeft.split(' ')[2];
-          setMonthNameHook(monthname);
-          console.log(
-            dateLeeft,
-            'geet month',
-            day.getMonth() + 1 * 1,
-            monthname,
-            '==>dateLeeft',
-          );
+          // var dateLeeft = day.toString().split('T')[0];
+          // monthname = dateLeeft.split(' ')[2];
+          // alert(day.getMonth());
+          setMonthNameHook(monthsArray[day.getMonth() - 1 * 1]);
+          // console.log(
+          //   dateLeeft,
+          //   'geet month',
+          //   day.getMonth() + 1 * 1,
+          //   monthname,
+          //   '==>dateLeeft',
+          // );
           subtractMonth();
         }}
         // Handler which gets executed when press arrow icon right. It receive a callback can go next month
         onPressArrowRight={(addMonth, day) => {
-          var dateRightt = day.toString().split('T')[0];
-          monthname = dateRightt.split(' ')[2];
-          console.log(
-            dateRightt,
-            'geet month',
-            day.getMonth(),
-            monthname,
-            '==>dateRightt',
-          );
-          setMonthNameHook(monthname);
+          // var dateRightt = day.toString().split('T')[0];
+          // monthname = dateRightt.split(' ')[2];
+          // alert(day.getMonth().toString());
+          // console.log(
+          //   dateRightt,
+          //   'geet month',
+          //   day.getMonth(),
+          //   monthname,
+          //   '==>dateRightt',
+          // );
+
+          setMonthNameHook(monthsArray[day.getMonth() + 1 * 1]);
           addMonth();
         }}
         onMonthChange={month => {
