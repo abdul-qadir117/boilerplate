@@ -381,14 +381,17 @@ const EventList = props => {
   );
   return (
     <Screen>
-      <Header title={'INTERVENTIONS LIST'} searchBar />
-      <TextInput
-        style={stylesInternal.textInputStyle}
-        onChangeText={text => searchFilterFunction(text)}
-        value={search}
-        underlineColorAndroid="transparent"
-        placeholder="Search Here"
-      />
+      <Header title={'INTERVENTIONS LIST'} />
+      <View style={stylesInternal.textInputStyle}>
+        <TextInput
+          style={stylesInternal.searchInputContainer}
+          onChangeText={text => searchFilterFunction(text)}
+          value={search}
+          underlineColorAndroid="transparent"
+          placeholder="Search Here"
+          placeholderTextColor="white"
+        />
+      </View>
       <View style={styles.monthView}>
         {/* <Text style={styles.leftIcon}>Sort by:</Text> */}
         <View
@@ -768,12 +771,22 @@ const stylesInternal = StyleSheet.create({
     padding: 10,
   },
   textInputStyle: {
+    padding: 16,
+    paddingBottom: 15,
+    fontSize: 14,
+    fontFamily: 'Lato',
+    flexDirection: 'row',
+    backgroundColor: '#1c5fa3',
+  },
+  searchInputContainer: {
+    flex: 1,
+    borderWidth: 2,
+    borderRadius: 28,
+    backgroundColor: '#05386b',
+    borderColor: '#05386b',
     height: 40,
-    borderWidth: 1,
-    paddingLeft: 20,
-    margin: 5,
-    borderColor: '#009688',
-    backgroundColor: '#FFFFFF',
+    paddingLeft: 10,
+    color: 'white',
   },
 });
 export default EventList;
