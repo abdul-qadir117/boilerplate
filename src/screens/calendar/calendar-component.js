@@ -206,7 +206,7 @@ const CalendarComponent = ({route}) => {
 
         //   return funFullDate;
         // }
-        // setMonthData(getNextDate(0));
+        setMonthData(getNextDate(0));
         markedDates[getNextDate(0)] = {
           startingDay: true,
           color: '#50cebb',
