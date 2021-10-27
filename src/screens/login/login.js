@@ -1,24 +1,19 @@
+import {Screen, Text} from '@components';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useState} from 'react';
 import {
-  View,
-  Image,
+  ActivityIndicator,
+  Alert,
+  ImageBackground,
+  KeyboardAvoidingView,
+  Modal,
   Platform,
   TextInput,
   TouchableOpacity,
-  ImageBackground,
-  StatusBar,
-  ScrollView,
-  KeyboardAvoidingView,
-  Modal,
-  ActivityIndicator,
-  Alert,
+  View,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Text, Screen, Button, Link} from '@components';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {TextInputField} from '@components/form';
 import styles from './login.style';
-import CalendarComponent from '../calendar/calendar-component';
 
 const Login = ({navigation}) => {
   // const { handleSubmit } = props;
@@ -91,50 +86,60 @@ const Login = ({navigation}) => {
 
   return (
     <Screen>
-      <ScrollView style={styles.container}>
-        {/* <CalendarComponent /> */}
-        <View style={styles.headerContainer}>
-          <ImageBackground
-            style={styles.headerContainerImage}
-            source={require('../../assets/images/loginbg.png')}>
-            <Text style={{...styles.welcomeText, marginTop: 170}}>Welcome</Text>
-            <Text style={styles.welcomeText}>Back</Text>
-          </ImageBackground>
-        </View>
-        <View style={styles.formContainer}>
-          <TextInput
-            style={styles.inputField}
-            autoCapitalize="none"
-            placeholder="Email"
-            value={email}
-            onChangeText={e => setEmail(e)}
-          />
-          <TextInput
-            style={styles.inputField}
-            autoCapitalize="none"
-            secureTextEntry={true}
-            placeholder="Password"
-            value={password}
-            onChangeText={e => setPassword(e)}
-          />
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity>
-              <Text style={styles.signInText}>Sign In</Text>
-            </TouchableOpacity>
-            <View style={styles.nextButtonContainer}>
-              <TouchableOpacity
-                onPress={() => loadData()}
-                style={styles.nextButton}>
-                <Icon name="angle-right" size={60} color="white" />
+      {/* <ScrollView style={styles.container}> */}
+      {/* <CalendarComponent /> */}
+      <View style={styles.container}>
+        <KeyboardAvoidingView
+          style={{flex: 1}}
+          {...(Platform.OS === 'ios' && {behavior: 'padding'})}>
+          {/* <CalendarComponent /> */}
+          <View style={styles.headerContainer}>
+            <ImageBackground
+              style={styles.headerContainerImage}
+              source={require('../../assets/images/loginbg.png')}>
+              <Text style={{...styles.welcomeText, marginTop: 170}}>
+                Welcome
+              </Text>
+              <Text style={styles.welcomeText}>Back</Text>
+            </ImageBackground>
+          </View>
+          <View style={{flex: 0.4}} />
+          <View style={styles.formContainer}>
+            <TextInput
+              style={styles.inputField}
+              autoCapitalize="none"
+              placeholder="Email"
+              value={email}
+              onChangeText={e => setEmail(e)}
+            />
+            <TextInput
+              style={styles.inputField}
+              autoCapitalize="none"
+              secureTextEntry={true}
+              placeholder="Password"
+              value={password}
+              onChangeText={e => setPassword(e)}
+            />
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity>
+                <Text style={styles.signInText}>Sign In</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('ForgotPassword')}>
-                <Text style={styles.forgetPassword}>Forgot Password</Text>
-              </TouchableOpacity>
+              <View style={styles.nextButtonContainer}>
+                <TouchableOpacity
+                  onPress={() => loadData()}
+                  style={styles.nextButton}>
+                  <Icon name="angle-right" size={60} color="white" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('ForgotPassword')}>
+                  <Text style={styles.forgetPassword}>Forgot Password</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
+        </KeyboardAvoidingView>
+      </View>
+
       {/* <View style={styles.centeredView}> */}
       <Modal
         animationType="slide"
