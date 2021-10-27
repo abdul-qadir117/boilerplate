@@ -72,13 +72,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     // alignItems: 'center',
-    marginTop: 22,
+    // marginTop: 22,
   },
   modalView: {
-    margin: 20,
     // backgroundColor: 'rgba(52, 52, 52, 0.8)',
     borderRadius: 20,
-    padding: 35,
+    // padding: 35,
     alignItems: 'center',
     // shadowColor: '#000',
     // shadowOffset: {

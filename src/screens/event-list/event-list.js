@@ -31,7 +31,7 @@ const EventList = props => {
   // const [startDate, setStartDate] = useState('2021-09-1');
   // const [endDate, setEndDate] = useState('2021-09-30');
   const [token, setToken] = useState(
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImJlNWVkNGE5Y2VlMjZkYTU0OWU3NDg1YTQ4MmRiNjZkMDk4MjIzYmY2YzU2YzlmM2VhNjFkNjk4MzYwOGRjN2QyNzdiZmM0ZTMyZDdmNjRmIn0.eyJhdWQiOiIxIiwianRpIjoiYmU1ZWQ0YTljZWUyNmRhNTQ5ZTc0ODVhNDgyZGI2NmQwOTgyMjNiZjZjNTZjOWYzZWE2MWQ2OTgzNjA4ZGM3ZDI3N2JmYzRlMzJkN2Y2NGYiLCJpYXQiOjE2MzM3OTkzNzAsIm5iZiI6MTYzMzc5OTM3MCwiZXhwIjoxNjY1MzM1MzcwLCJzdWIiOiIxODQ0MyIsInNjb3BlcyI6W119.LeIQoPo3b73SsoSDgNU06gbeWq4XFRGGqsUGqoL6xtV6Dj5vw3iUz1XaO-3Ojs8Rk5a_-NvhhO6g-BUWau56w5T8Ec765JhSxXnh-q-mfc3Z0EEhGu7sxpO1CSFwj0gRq8CWk_b1c5RyQxIISwRwhQ6quVQw7DHtPvl0qACQZk1FPt6lmBPllVt9Oq3A1Qos8VdWdDDEXqDMQcFGbP_wXtuKG9AK2ZpR1CB2abKAT-PbDWqwMPLZlcUOvk5TOroIuW7UYUy21hy7Vfiu3vjSK70l7rK20kwuJ2uULru-V4CQky0UaNR0oCObzgJB4R2aOF8oqTmkjD5b85ANHNRiG8zpoooAM39yKvOoI9S7_14cu_l-R9qa_ntV8Hjydn09OxLVvHOQSx_MVxt---WGDVF0LLJ7gH8ahGmoIKObjuV_284H7DMPcrlP4RiASd_M8kOR62MqsBAU_k1mJcCEpz6ecERXRxpywJNKN8w5hifXS4U9QRTMk5gC9IbN8GOIKAeuKGDDAYHc1KY8lrlYR_azIR6ojPlYSB1hpk4xynh647ih_oqWz7RlXtiYGG8zVZLESR77f66kR-WGLGsbjY0tOVvtsPIn9mkTEwU7wpMCIRFI7jdbpUxxtFAWQFvP78jI8VqPtxWGuwnt4r0WWZY0HUlCbWf9UjsxObD8KsM',
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjE2Yzc5OTc2ZTczNmNjZjM3MDc0YjQ3ZjBjNDRmNWNhZWZjZjZlMDZjMzUyY2JmZTU3OGU0YTI4OWNkODE4ZDE5MjYyN2E5OWU1NTIwNzM4In0.eyJhdWQiOiIxIiwianRpIjoiMTZjNzk5NzZlNzM2Y2NmMzcwNzRiNDdmMGM0NGY1Y2FlZmNmNmUwNmMzNTJjYmZlNTc4ZTRhMjg5Y2Q4MThkMTkyNjI3YTk5ZTU1MjA3MzgiLCJpYXQiOjE2MzUzMjQ0NDYsIm5iZiI6MTYzNTMyNDQ0NiwiZXhwIjoxNjY2ODYwNDQ2LCJzdWIiOiIxODUwNSIsInNjb3BlcyI6W119.PcMZluQcIy7jkkzqvY91OTdJnsl938RZo36VWpkrEOdLfnx6WIPu_gLKdv-WnLkqHaGShEVAsnH4vWmmUoSyC36Likla5HppbOPwj5TEA-wnkoH1ELnGPMxw_y_AeLmORX6tNSgpPTmiHbikuTyyMDHsI79-9Loryjldn7JJ2pbEy-By_JPuEBkePT63P-ZbukMybzK7zOOLQb9SlwOjtJp3kPMTQ99Er9ilY-26RrtfvGbMjUKF4as65fcEzoWlsq6sd7GOv-Wt09mFxHQ9hZmdgLgd39Ba9js0MfarSo1v0lgka35X5PUThuyZvpGSqXTy9wyQKWucoLKCYff4jWFHFvKEg-12gi02VzCY344wv4x5F27kf-3zsUIksOSebr8qO492XTKm5PrS7xGpkShTPwZWrjAhD5Sl1LwUOTkOkpXjbxOPfzbDSSculq15T9qLGPzTNB7YG9KLJhSmrJUIzmBcwIGkTKb06_cQQMNRV4gkq-ISMFI974Z04pcxCpsnrldqKQuQMGQ-8undm7a-BR6Rjlzi-AFLwXX5vsCxBRSvKaTqx9Ip64C11XCBKUDw2IbVndng7O7B-DEfQvaUEPwueKaqWxpFCRID71WfFmNiQ4bjYQLfs-gWbDutAXD4Oy_UELDoTe_er2XXmwT4uq29AFrcgyoAXzR_ylo',
   );
   const [modalVisible, setModalVisible] = useState(false);
   const [joinmodalVisible, setJoinModalVisible] = useState(false);
@@ -42,6 +42,9 @@ const EventList = props => {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
+  const [interventionName, setInterventionName] = useState('All');
+  const [interventionAlertMsg, setInterventionAlertMsg] = useState('');
+  const [interventionMsgVisible, setInterventionMsgVisible] = useState(false);
   // const [month, setMonth] = useState(1);
   // const [day, setDay] = useState(1);
   var month = 0;
@@ -49,6 +52,8 @@ const EventList = props => {
   const [interventionbject, setInterventionbject] = useState({});
   var inter_max_ddays = 0;
   var prevDate = '';
+  var funFullDate;
+
   React.useEffect(() => {
     console.log('focus1');
     getMonthh();
@@ -133,9 +138,18 @@ const EventList = props => {
     day,
   ]);
 
-  const getInterventions = () => {
-    console.log(inter_max_ddays, 'inter_max_ddays', month, 'month', day, 'day');
-    fetch(
+  const getInterventions = async () => {
+    await getMonthh();
+    console.log(
+      inter_max_ddays,
+      'inter_max_ddays',
+      month,
+      'month',
+      day,
+      'day',
+      funFullDate,
+    );
+    const datafetch = await fetch(
       'https://tieredtracker.com/api/all-interventions?joined=' +
         studentJoined +
         '&assigned=' +
@@ -145,9 +159,13 @@ const EventList = props => {
         '&available=' +
         available +
         '&end_date=' +
-        `2021-${month}-${day * 1 + 7}` +
+        // '2021-09-01'+
+        // `2021-${month}-${day * 1 + 7}` +
+        funFullDate +
         '&start_date=' +
         `2021-${month}-${day}`,
+      // day,
+      // '2021-01-01',
       {
         headers: {
           Accept: 'application/json',
@@ -158,11 +176,12 @@ const EventList = props => {
     )
       .then(async response => {
         let data = await response.json();
-        // console.log(data.data, token, '==>');
+        console.log(data, token, '==>');
         console.log(inter_max_ddays, 'data');
         if (data.status === true) {
           console.log(loading, '==>loading');
           setLoading(false);
+
           //setInterventions(data.data.interventions);
 
           var interventionData = data.data.interventions.sort(function (a, b) {
@@ -171,6 +190,8 @@ const EventList = props => {
           setInterventions(interventionData);
           setFilteredDataSource(interventionData);
           setMasterDataSource(interventionData);
+        } else {
+          setLoading(false);
         }
       })
       .catch(error => console.log('Something went wrong', error));
@@ -182,8 +203,12 @@ const EventList = props => {
       const interventionDay = await AsyncStorage.getItem('interventionDay');
       console.log(interventionDay, 'interventionDay');
       console.log('token oo', value);
+      console.log('NNext', getNextDate(0), '==>');
+
       if (value !== null) {
         // value previously stored
+        // console.log('NNext', getNextDate(7), '==>');
+
         inter_max_ddays = interventionDay;
         setToken(value);
         getInterventions();
@@ -194,10 +219,55 @@ const EventList = props => {
       // error reading value
     }
   };
+  function getNextDate(dayNum) {
+    const currentDayInMilli = new Date(date).getTime();
+    const oneDay = 1000 * 60 * 60 * 24;
+    const nextDayInMilli = currentDayInMilli + oneDay * dayNum;
+    const nextDate = new Date(nextDayInMilli);
+    const funDate = nextDate.getDate();
+    const funMonth = nextDate.getMonth() + 1;
+    const funYear = nextDate.getFullYear();
+    var funFullDate;
+
+    if (funDate > 9 && funMonth > 9) {
+      funFullDate = funYear + '-' + funMonth + '-' + funDate;
+    } else if (funMonth > 9 && funDate > 9) {
+      funFullDate = funYear + '-' + '0' + funMonth + '-' + '0' + funDate;
+    } else if (funMonth < 10 && funDate < 9) {
+      funFullDate = funYear + '-' + '0' + funMonth + '-' + '0' + funDate;
+    } else if (funDate > 9 && funMonth < 10) {
+      funFullDate = funYear + '-' + '0' + funMonth + '-' + funDate;
+    } else {
+      funFullDate = funYear + '-' + funMonth + '-' + '0' + funDate;
+    }
+    console.log(funFullDate);
+    return funFullDate;
+  }
   const getMonthh = async () => {
     try {
       // const value = await AsyncStorage.getItem('month');
       const value1 = await AsyncStorage.getItem('day');
+
+      const currentDayInMilli = new Date().getTime();
+      const oneDay = 1000 * 60 * 60 * 24;
+      const nextDayInMilli = currentDayInMilli + oneDay * 7;
+      const nextDate = new Date(nextDayInMilli);
+      const funDate = nextDate.getDate();
+      const funMonth = nextDate.getMonth() + 1;
+      const funYear = nextDate.getFullYear();
+
+      if (funDate > 9 && funMonth > 9) {
+        funFullDate = funYear + '-' + funMonth + '-' + funDate;
+      } else if (funMonth > 9 && funDate > 9) {
+        funFullDate = funYear + '-' + '0' + funMonth + '-' + '0' + funDate;
+      } else if (funMonth < 10 && funDate < 9) {
+        funFullDate = funYear + '-' + '0' + funMonth + '-' + '0' + funDate;
+      } else if (funDate > 9 && funMonth < 10) {
+        funFullDate = funYear + '-' + '0' + funMonth + '-' + funDate;
+      } else {
+        funFullDate = funYear + '-' + funMonth + '-' + '0' + funDate;
+      }
+      console.log(funFullDate, '====u');
 
       console.log('monthh', value1, value1.split('-')[2], value1.split('-')[1]);
       const monthsLocal = value1.split('-')[1];
@@ -206,6 +276,7 @@ const EventList = props => {
         // value previously stored
         // setMonth(monthsLocal);
         // setDay(daysLocal);
+        // console.log('NNext', getNextDate(7), '==>');
         month = monthsLocal;
         day = daysLocal;
         console.log(
@@ -216,6 +287,7 @@ const EventList = props => {
           'dayslocal',
           value1,
         );
+        // day = value1;
       }
     } catch (e) {
       // error reading value
@@ -271,7 +343,9 @@ const EventList = props => {
         let data = await response.json();
         console.log(data, 'Jooined interventions');
         getInterventions();
-        Alert.alert(data.message);
+        setInterventionAlertMsg(data.message);
+        // Alert.alert(data.message);
+        setInterventionMsgVisible(true);
       })
       .catch(error => console.log('Something went wrong', error));
   };
@@ -367,7 +441,7 @@ const EventList = props => {
             }}>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: '700',
                 color: 'white',
                 textAlign: 'center',
@@ -383,21 +457,49 @@ const EventList = props => {
     <Screen>
       <Header title={'INTERVENTIONS LIST'} />
       <View style={stylesInternal.textInputStyle}>
-        <TextInput
-          style={stylesInternal.searchInputContainer}
-          onChangeText={text => searchFilterFunction(text)}
-          value={search}
-          underlineColorAndroid="transparent"
-          placeholder="Search Here"
-          placeholderTextColor="white"
-        />
+        <View
+          style={{
+            ...stylesInternal.searchInputContainer,
+            flexDirection: 'row',
+            height: 50,
+            // justifyContent: 'center',
+            // alignItems: 'center',
+          }}>
+          <Icon
+            name="search"
+            size={16}
+            color={'white'}
+            style={{alignSelf: 'center'}}
+          />
+          <TextInput
+            style={{...stylesInternal.searchInputContainer, paddingTop: 5}}
+            onChangeText={text => searchFilterFunction(text)}
+            value={search}
+            underlineColorAndroid="transparent"
+            placeholder="Search Here"
+            placeholderTextColor="white"
+          />
+          {/* <View
+            style={{
+              borderWidth: 1,
+              height: 20,
+              width: 20,
+            }}>
+            <Icon
+              name="search"
+              size={16}
+              color={'white'}
+              // style={styles.icon}
+            />
+          </View> */}
+        </View>
       </View>
       <View style={styles.monthView}>
         {/* <Text style={styles.leftIcon}>Sort by:</Text> */}
         <View
           style={{
             height: 30,
-            width: 200,
+            width: '90%',
             // borderWidth: 1,
             flexDirection: 'row',
             alignItems: 'center',
@@ -406,8 +508,8 @@ const EventList = props => {
           <TouchableOpacity
             style={{
               flexDirection: 'row',
-              justifyContent: 'space-around',
-              width: 120,
+              // justifyContent: 'space-around',
+              width: '100%',
               alignItems: 'center',
             }}
             onPress={() => {
@@ -424,6 +526,18 @@ const EventList = props => {
               }}>
               <Text style={styles.leftIcon}>Sort by :</Text>
             </View>
+            <View
+              style={{
+                // borderWidth: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+
+                // width: 200,
+                height: '100%',
+              }}>
+              <Text>{interventionName}</Text>
+            </View>
+
             <View
               style={{
                 // borderWidth: 1,
@@ -474,6 +588,13 @@ const EventList = props => {
         ) : (
           <FlatList
             data={filteredDataSource}
+            ListHeaderComponent={() => (
+              <View style={{flexDirection: 'row'}}>
+                <Text style={{marginLeft: 30}}>DATE</Text>
+                <Text style={{marginLeft: 100}}>EVENTS</Text>
+              </View>
+            )}
+            ListHeaderComponentStyle={{marginTop: 20}}
             renderItem={renderItem}
             keyExtractor={(item, index) => {
               item.id;
@@ -515,6 +636,7 @@ const EventList = props => {
                   setCloseFull(0);
                   setTeacherAssigned(0);
                   setStudentJoined(0);
+                  setInterventionName('Available');
                 }}>
                 <Text style={{fontWeight: '600'}}>Available</Text>
               </TouchableOpacity>
@@ -533,6 +655,7 @@ const EventList = props => {
                   setCloseFull(0);
                   setTeacherAssigned(1);
                   setStudentJoined(0);
+                  setInterventionName('Teacher Assigned');
                 }}>
                 <Text style={{fontWeight: '600'}}>Teacher assigned</Text>
               </TouchableOpacity>
@@ -551,6 +674,7 @@ const EventList = props => {
                   setCloseFull(0);
                   setTeacherAssigned(0);
                   setStudentJoined(1);
+                  setInterventionName('Student Joined');
                 }}>
                 <Text style={{fontWeight: '600'}}>Student Joined</Text>
               </TouchableOpacity>
@@ -569,6 +693,7 @@ const EventList = props => {
                   setCloseFull(1);
                   setTeacherAssigned(0);
                   setStudentJoined(0);
+                  setInterventionName('Full/Close');
                 }}>
                 <Text style={{fontWeight: '600'}}>Full/Close</Text>
               </TouchableOpacity>
@@ -587,6 +712,7 @@ const EventList = props => {
                   setCloseFull(1);
                   setTeacherAssigned(1);
                   setStudentJoined(1);
+                  setInterventionName('All');
                 }}>
                 <Text style={{fontWeight: '600'}}>All</Text>
               </TouchableOpacity>
@@ -721,7 +847,7 @@ const EventList = props => {
                   {interventionbject.detail}
                 </Text>
               </View>
-              {interventionbject.interventionStatus !== 'full' ||
+              {interventionbject.interventionStatus !== 'full' &&
               interventionbject.interventionStatus !== 'closed' ? (
                 <TouchableOpacity
                   style={{
@@ -758,6 +884,33 @@ const EventList = props => {
             </View>
           </View>
         </Modal>
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={interventionMsgVisible}
+            onRequestClose={() => {
+              setInterventionMsgVisible(!interventionMsgVisible);
+            }}>
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <TouchableOpacity
+                  style={{
+                    // borderWidth: 1,
+                    width: '100%',
+                    marginBottom: 30,
+                    alignItems: 'flex-end',
+                  }}
+                  onPress={() =>
+                    setInterventionMsgVisible(!interventionMsgVisible)
+                  }>
+                  <FontAwesome name="close" size={30} color="black" />
+                </TouchableOpacity>
+                <Text>{interventionAlertMsg}</Text>
+              </View>
+            </View>
+          </Modal>
+        </View>
       </View>
     </Screen>
   );
@@ -785,6 +938,7 @@ const stylesInternal = StyleSheet.create({
     backgroundColor: '#05386b',
     borderColor: '#05386b',
     height: 40,
+    width: '90%',
     paddingLeft: 10,
     color: 'white',
   },
