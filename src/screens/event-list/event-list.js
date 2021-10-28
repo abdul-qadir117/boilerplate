@@ -30,9 +30,7 @@ const EventList = props => {
   const [loading, setLoading] = useState(false);
   // const [startDate, setStartDate] = useState('2021-09-1');
   // const [endDate, setEndDate] = useState('2021-09-30');
-  const [token, setToken] = useState(
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjE2Yzc5OTc2ZTczNmNjZjM3MDc0YjQ3ZjBjNDRmNWNhZWZjZjZlMDZjMzUyY2JmZTU3OGU0YTI4OWNkODE4ZDE5MjYyN2E5OWU1NTIwNzM4In0.eyJhdWQiOiIxIiwianRpIjoiMTZjNzk5NzZlNzM2Y2NmMzcwNzRiNDdmMGM0NGY1Y2FlZmNmNmUwNmMzNTJjYmZlNTc4ZTRhMjg5Y2Q4MThkMTkyNjI3YTk5ZTU1MjA3MzgiLCJpYXQiOjE2MzUzMjQ0NDYsIm5iZiI6MTYzNTMyNDQ0NiwiZXhwIjoxNjY2ODYwNDQ2LCJzdWIiOiIxODUwNSIsInNjb3BlcyI6W119.PcMZluQcIy7jkkzqvY91OTdJnsl938RZo36VWpkrEOdLfnx6WIPu_gLKdv-WnLkqHaGShEVAsnH4vWmmUoSyC36Likla5HppbOPwj5TEA-wnkoH1ELnGPMxw_y_AeLmORX6tNSgpPTmiHbikuTyyMDHsI79-9Loryjldn7JJ2pbEy-By_JPuEBkePT63P-ZbukMybzK7zOOLQb9SlwOjtJp3kPMTQ99Er9ilY-26RrtfvGbMjUKF4as65fcEzoWlsq6sd7GOv-Wt09mFxHQ9hZmdgLgd39Ba9js0MfarSo1v0lgka35X5PUThuyZvpGSqXTy9wyQKWucoLKCYff4jWFHFvKEg-12gi02VzCY344wv4x5F27kf-3zsUIksOSebr8qO492XTKm5PrS7xGpkShTPwZWrjAhD5Sl1LwUOTkOkpXjbxOPfzbDSSculq15T9qLGPzTNB7YG9KLJhSmrJUIzmBcwIGkTKb06_cQQMNRV4gkq-ISMFI974Z04pcxCpsnrldqKQuQMGQ-8undm7a-BR6Rjlzi-AFLwXX5vsCxBRSvKaTqx9Ip64C11XCBKUDw2IbVndng7O7B-DEfQvaUEPwueKaqWxpFCRID71WfFmNiQ4bjYQLfs-gWbDutAXD4Oy_UELDoTe_er2XXmwT4uq29AFrcgyoAXzR_ylo',
-  );
+  // const [token, setToken] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [joinmodalVisible, setJoinModalVisible] = useState(false);
   const [available, setAvailable] = useState(1);
@@ -53,29 +51,30 @@ const EventList = props => {
   var inter_max_ddays = 0;
   var prevDate = '';
   var funFullDate;
+  var token;
 
   React.useEffect(() => {
-    console.log('focus1');
+    // console.log('focus1');
     getMonthh();
     getInterventions();
 
     const unsubscribe = props.navigation.addListener('focus', () => {
       // The screen is focused
       // Call any action
-      console.log('focus2');
+      // console.log('focus2');
       getMonthh();
       getInterventions();
-      console.log('focus3', month, day);
+      // console.log('focus3', month, day);
     });
 
     //Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;
   }, [props.navigation]);
   useEffect(() => {
-    console.log('HEY SH');
+    // console.log('HEY SH');
     getMonthh();
   });
-  useEffect(() => {
+  useEffect(async () => {
     // console.log('CalendarComponent: ', getToken);
     // console.log(
     //   'start-date ==>',
@@ -86,9 +85,10 @@ const EventList = props => {
     //     '&start_date=' +
     //     `2021-${month}-${day}`,
     // );
-    getToken();
+    await getToken();
 
     setLoading(true);
+    getInterventions();
     // getInterventions();
     // fetch(
     //   'https://tieredtracker.com/api/all-interventions?joined=' +
@@ -140,15 +140,17 @@ const EventList = props => {
 
   const getInterventions = async () => {
     await getMonthh();
-    console.log(
-      inter_max_ddays,
-      'inter_max_ddays',
-      month,
-      'month',
-      day,
-      'day',
-      funFullDate,
-    );
+    console.log('GetInterventions---------------------', token);
+    // console.log(
+    //   studentJoined +
+    //     '&assigned=' +
+    //     teacherAssigned +
+    //     '&close_full=' +
+    //     close_full +
+    //     '&available=' +
+    //     available +
+    //     '&end_date=',
+    // );
     const datafetch = await fetch(
       'https://tieredtracker.com/api/all-interventions?joined=' +
         studentJoined +
@@ -185,7 +187,11 @@ const EventList = props => {
           //setInterventions(data.data.interventions);
 
           var interventionData = data.data.interventions.sort(function (a, b) {
-            return a.start.split('-')[2] - b.start.split('-')[2];
+            if (funFullDate < `2021-${month}-${day}`) {
+              return a.start.split('-')[2] - b.start.split('-')[2];
+            } else {
+              return a.start.split('-')[2] + b.start.split('-')[2];
+            }
           });
           setInterventions(interventionData);
           setFilteredDataSource(interventionData);
@@ -201,16 +207,18 @@ const EventList = props => {
     try {
       const value = await AsyncStorage.getItem('token');
       const interventionDay = await AsyncStorage.getItem('interventionDay');
-      console.log(interventionDay, 'interventionDay');
-      console.log('token oo', value);
-      console.log('NNext', getNextDate(0), '==>');
+      // console.log(interventionDay, 'interventionDay');
+      // console.log('token oo', value);
+      // console.log('NNext', getNextDate(0), '==>');
+      // await setToken(value);
+      token = await value;
 
       if (value !== null) {
         // value previously stored
         // console.log('NNext', getNextDate(7), '==>');
 
         inter_max_ddays = interventionDay;
-        setToken(value);
+        // await setToken(value);
         getInterventions();
 
         console.log('token: in Event ', value);
@@ -317,9 +325,9 @@ const EventList = props => {
     }
   };
 
-  const join_intervention = id => {
+  const join_intervention = async id => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
+    await getToken();
     // if (reg.test(email) === false) {
     //   setToastMessage('Email is Not Correct');
 
@@ -330,6 +338,7 @@ const EventList = props => {
     // formData.append('email', email);
     // formData.append('password', password);
 
+    console.log('Join Intervention', token);
     fetch('https://tieredtracker.com/api/intervention/join/' + id, {
       method: 'POST',
       headers: {
@@ -637,6 +646,7 @@ const EventList = props => {
                   setTeacherAssigned(0);
                   setStudentJoined(0);
                   setInterventionName('Available');
+                  // getInterventions();
                 }}>
                 <Text style={{fontWeight: '600'}}>Available</Text>
               </TouchableOpacity>
@@ -656,6 +666,7 @@ const EventList = props => {
                   setTeacherAssigned(1);
                   setStudentJoined(0);
                   setInterventionName('Teacher Assigned');
+                  // getInterventions();
                 }}>
                 <Text style={{fontWeight: '600'}}>Teacher assigned</Text>
               </TouchableOpacity>
@@ -675,6 +686,7 @@ const EventList = props => {
                   setTeacherAssigned(0);
                   setStudentJoined(1);
                   setInterventionName('Student Joined');
+                  // getInterventions();
                 }}>
                 <Text style={{fontWeight: '600'}}>Student Joined</Text>
               </TouchableOpacity>
@@ -694,6 +706,7 @@ const EventList = props => {
                   setTeacherAssigned(0);
                   setStudentJoined(0);
                   setInterventionName('Full/Close');
+                  // getInterventions();
                 }}>
                 <Text style={{fontWeight: '600'}}>Full/Close</Text>
               </TouchableOpacity>
@@ -713,6 +726,7 @@ const EventList = props => {
                   setTeacherAssigned(1);
                   setStudentJoined(1);
                   setInterventionName('All');
+                  // getInterventions();
                 }}>
                 <Text style={{fontWeight: '600'}}>All</Text>
               </TouchableOpacity>
@@ -848,7 +862,8 @@ const EventList = props => {
                 </Text>
               </View>
               {interventionbject.interventionStatus !== 'full' &&
-              interventionbject.interventionStatus !== 'closed' ? (
+              interventionbject.interventionStatus !== 'closed' &&
+              interventionbject.interventionStatus !== 'joined' ? (
                 <TouchableOpacity
                   style={{
                     borderWidth: 1,
@@ -877,7 +892,8 @@ const EventList = props => {
                       marginTop: 30,
                       fontWeight: '700',
                     }}>
-                    You cannot join the intervention because it is full
+                    You cannot join the intervention because it is{' '}
+                    {interventionbject.interventionStatus}
                   </Text>
                 </TouchableOpacity>
               )}
